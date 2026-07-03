@@ -1,0 +1,2 @@
+# criteriosjuntos2026
+CRITERIOS CAMPANHA JUNTOS
