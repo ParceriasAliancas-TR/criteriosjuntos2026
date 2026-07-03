@@ -213,6 +213,7 @@ body{
 .hl{flex:1}
 .hr{flex:0 0 clamp(180px,26vw,340px);display:flex;align-items:center;justify-content:center}
 .hr img{width:100%;animation:flt 4s ease-in-out infinite;filter:drop-shadow(0 20px 50px rgba(214,64,0,.4))}
+#hero-sphere{animation:flt 6s ease-in-out infinite;filter:drop-shadow(0 0 50px rgba(214,64,0,.35))}
 
 .h-eye{display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(255,255,255,.16);color:rgba(255,255,255,.48);font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:5px 15px;margin-bottom:22px}
 .h-title{font-size:clamp(4rem,9.5vw,7.5rem);font-weight:900;line-height:1;letter-spacing:-.025em;margin-bottom:10px}
@@ -399,7 +400,7 @@ body{
       <div class="h-line"></div>
     </div>
     <div class="hr a fr d2">
-      <img src="Grafico.gif" alt="JUNTOS 2026">
+      <canvas id="hero-sphere" width="340" height="340"></canvas>
     </div>
   </div>
 </section>
@@ -644,22 +645,22 @@ body{
 
 <!-- ══ AUDIO POOL ════════════════════════════════════════ -->
 <div style="display:none">
-  <audio id="aud0"  src="slide_00.mp3" preload="auto"></audio>
-  <audio id="aud1"  src="slide_01.mp3" preload="auto"></audio>
-  <audio id="aud2"  src="slide_02.mp3" preload="auto"></audio>
-  <audio id="aud3"  src="slide_03.mp3" preload="auto"></audio>
-  <audio id="aud4"  src="slide_04.mp3" preload="auto"></audio>
-  <audio id="aud5"  src="slide_05.mp3" preload="auto"></audio>
-  <audio id="aud6"  src="slide_06.mp3" preload="auto"></audio>
-  <audio id="aud7"  src="slide_07.mp3" preload="auto"></audio>
-  <audio id="aud8"  src="slide_08.mp3" preload="auto"></audio>
-  <audio id="aud9"  src="slide_09.mp3" preload="auto"></audio>
-  <audio id="aud10" src="slide_10.mp3" preload="auto"></audio>
-  <audio id="aud11" src="slide_11.mp3" preload="auto"></audio>
-  <audio id="aud12" src="slide_12.mp3" preload="auto"></audio>
-  <audio id="aud13" src="slide_13.mp3" preload="auto"></audio>
-  <audio id="aud14" src="slide_14.mp3" preload="auto"></audio>
-  <audio id="aud15" src="slide_15.mp3" preload="auto"></audio>
+  <audio id="aud0"  src="audio/slide_00.mp3" preload="auto"></audio>
+  <audio id="aud1"  src="audio/slide_01.mp3" preload="auto"></audio>
+  <audio id="aud2"  src="audio/slide_02.mp3" preload="auto"></audio>
+  <audio id="aud3"  src="audio/slide_03.mp3" preload="auto"></audio>
+  <audio id="aud4"  src="audio/slide_04.mp3" preload="auto"></audio>
+  <audio id="aud5"  src="audio/slide_05.mp3" preload="auto"></audio>
+  <audio id="aud6"  src="audio/slide_06.mp3" preload="auto"></audio>
+  <audio id="aud7"  src="audio/slide_07.mp3" preload="auto"></audio>
+  <audio id="aud8"  src="audio/slide_08.mp3" preload="auto"></audio>
+  <audio id="aud9"  src="audio/slide_09.mp3" preload="auto"></audio>
+  <audio id="aud10" src="audio/slide_10.mp3" preload="auto"></audio>
+  <audio id="aud11" src="audio/slide_11.mp3" preload="auto"></audio>
+  <audio id="aud12" src="audio/slide_12.mp3" preload="auto"></audio>
+  <audio id="aud13" src="audio/slide_13.mp3" preload="auto"></audio>
+  <audio id="aud14" src="audio/slide_14.mp3" preload="auto"></audio>
+  <audio id="aud15" src="audio/slide_15.mp3" preload="auto"></audio>
 </div>
 
 <script>
@@ -898,6 +899,43 @@ function fixLogos() {
     ).join('');
   });
 }
+
+/* ── 3D Sphere ─────────────────────────────── */
+(function(){
+  const canvas = document.getElementById('hero-sphere');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  const R = 138, N = 180;
+  const golden = Math.PI * (3 - Math.sqrt(5));
+  const dots = [];
+  for(let i = 0; i < N; i++){
+    const y = 1 - (i/(N-1)) * 2;
+    const r = Math.sqrt(1 - y*y);
+    const theta = golden * i;
+    dots.push({x: Math.cos(theta)*r, y, z: Math.sin(theta)*r});
+  }
+  let angle = 0;
+  function draw(){
+    ctx.clearRect(0, 0, W, H);
+    angle += 0.0045;
+    const proj = dots.map(d => {
+      const x = d.x * Math.cos(angle) - d.z * Math.sin(angle);
+      const z = d.x * Math.sin(angle) + d.z * Math.cos(angle);
+      return { px: W/2 + x*R, py: H/2 + d.y*R, depth: (z+1)/2 };
+    }).sort((a,b) => a.depth - b.depth);
+    proj.forEach(p => {
+      const size = 1.5 + p.depth * 4.5;
+      const alpha = 0.08 + p.depth * 0.92;
+      ctx.beginPath();
+      ctx.arc(p.px, p.py, size, 0, Math.PI*2);
+      ctx.fillStyle = `rgba(214,64,0,${alpha.toFixed(2)})`;
+      ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
 
 document.addEventListener('DOMContentLoaded', () => {
   initKaras();
