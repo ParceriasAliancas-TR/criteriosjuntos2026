@@ -326,6 +326,14 @@ body{
 </head>
 <body>
 
+<!-- ══ SPLASH ══════════════════════════════════════════ -->
+<div id="splash" style="position:fixed;inset:0;background:#08080f;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;cursor:pointer" onclick="startPresentation()">
+  <svg viewBox="0 0 42 42" fill="#D64000" width="56" height="56"><circle cx="17.5" cy="3" r="1.2"/><circle cx="21" cy="3" r="1.2"/><circle cx="24.5" cy="3" r="1.2"/><circle cx="13" cy="7.5" r="1.2"/><circle cx="17" cy="7.5" r="1.2"/><circle cx="21" cy="7.5" r="1.2"/><circle cx="25" cy="7.5" r="1.2"/><circle cx="29" cy="7.5" r="1.2"/><circle cx="9" cy="12" r="1.2"/><circle cx="13" cy="12" r="1.2"/><circle cx="17" cy="12" r="1.2"/><circle cx="21" cy="12" r="1.2"/><circle cx="25" cy="12" r="1.2"/><circle cx="29" cy="12" r="1.2"/><circle cx="33" cy="12" r="1.2"/><circle cx="7" cy="17" r="1.2"/><circle cx="11" cy="17" r="1.2"/><circle cx="15" cy="17" r="1.2"/><circle cx="19" cy="17" r="1.2"/><circle cx="23" cy="17" r="1.2"/><circle cx="27" cy="17" r="1.2"/><circle cx="31" cy="17" r="1.2"/><circle cx="35" cy="17" r="1.2"/><circle cx="7" cy="22" r="1.2"/><circle cx="11" cy="22" r="1.2"/><circle cx="15" cy="22" r="1.2"/><circle cx="19" cy="22" r="1.2"/><circle cx="23" cy="22" r="1.2"/><circle cx="27" cy="22" r="1.2"/><circle cx="31" cy="22" r="1.2"/><circle cx="35" cy="22" r="1.2"/><circle cx="9" cy="27" r="1.2"/><circle cx="13" cy="27" r="1.2"/><circle cx="17" cy="27" r="1.2"/><circle cx="21" cy="27" r="1.2"/><circle cx="25" cy="27" r="1.2"/><circle cx="29" cy="27" r="1.2"/><circle cx="33" cy="27" r="1.2"/><circle cx="13" cy="32" r="1.2"/><circle cx="17" cy="32" r="1.2"/><circle cx="21" cy="32" r="1.2"/><circle cx="25" cy="32" r="1.2"/><circle cx="29" cy="32" r="1.2"/><circle cx="17.5" cy="37" r="1.2"/><circle cx="21" cy="37" r="1.2"/><circle cx="24.5" cy="37" r="1.2"/></svg>
+  <div style="color:#fff;font-size:2rem;font-weight:900;letter-spacing:-.02em">JUNTOS <span style="color:#D64000">2026</span></div>
+  <div style="color:rgba(255,255,255,.45);font-size:.9rem;letter-spacing:.12em;text-transform:uppercase">Clique para iniciar com narração</div>
+  <div style="background:#D64000;color:#fff;font-weight:700;font-size:.85rem;letter-spacing:.1em;text-transform:uppercase;padding:14px 42px;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 100%,0 100%)">▶ Iniciar</div>
+</div>
+
 <!-- ══ NAV ══════════════════════════════════════════════ -->
 <nav id="nav">
   <a class="nav-brand" href="#s-hero">
@@ -907,77 +915,89 @@ function fixLogos() {
   });
 }
 
-/* ── Criteria Highlight ─────────────────────── */
+/* ── Splash / Autoplay fix ──────────────────── */
+function startPresentation() {
+  const sp = document.getElementById('splash');
+  if(sp) { sp.style.opacity = '0'; sp.style.transition = 'opacity .6s'; setTimeout(() => sp.remove(), 650); }
+  const hero = document.getElementById('s-hero');
+  if(hero) {
+    hero.querySelectorAll('.a').forEach((el, i) => setTimeout(() => el.classList.add('in'), 100 + i * 60));
+  }
+  setTimeout(() => playAud(0), 400);
+}
+
+/* ── Criteria Highlight — timestamps reais ──── */
 const CRIT_MAP = {
   's-gdd':'cards-gdd','s-avm':'cards-avm',
   's-cec':'cards-cec','s-pdc':'cards-pdc','s-eng':'cards-eng'
 };
-let critTimers = [];
+const CRIT_TIMES = {
+  's-gdd': [4.9, 10.0, 13.4, 16.6],
+  's-avm': [5.4, 10.2, 14.7, 19.0, 23.2, 25.9],
+  's-cec': [0.5, 4.7,  9.7, 16.5, 26.6],
+  's-pdc': [2.5, 6.9, 12.9, 15.8, 24.2],
+  's-eng': [0.5],
+};
+let critListener = null;
 
 function clearCritHighlights() {
-  critTimers.forEach(t => clearTimeout(t));
-  critTimers = [];
   document.querySelectorAll('.cc.lit').forEach(el => el.classList.remove('lit'));
 }
 
 function startCritHighlight(secId, audEl) {
   clearCritHighlights();
+  if(critListener) { audEl.removeEventListener('timeupdate', critListener); critListener = null; }
   const containerId = CRIT_MAP[secId];
-  if (!containerId) return;
+  const times = CRIT_TIMES[secId];
+  if(!containerId || !times) return;
   const cards = Array.from(document.querySelectorAll('#' + containerId + ' .cc'));
-  if (!cards.length) return;
-
-  function schedule(dur) {
-    const startAt = 1200;
-    const available = (dur * 1000) - startAt - 600;
-    const step = Math.max(600, available / cards.length);
-    cards.forEach((card, i) => {
-      const t1 = critTimers.length;
-      critTimers.push(setTimeout(() => {
-        document.querySelectorAll('#' + containerId + ' .cc.lit').forEach(el => el.classList.remove('lit'));
-        card.classList.add('lit');
-      }, startAt + i * step));
-    });
-  }
-
-  if (audEl.duration && isFinite(audEl.duration)) {
-    schedule(audEl.duration);
-  } else {
-    audEl.addEventListener('loadedmetadata', () => schedule(audEl.duration), { once: true });
-    schedule(10);
-  }
+  if(!cards.length) return;
+  let last = -1;
+  critListener = function() {
+    const t = audEl.currentTime;
+    let idx = -1;
+    for(let i = times.length - 1; i >= 0; i--) { if(t >= times[i]) { idx = i; break; } }
+    if(idx !== last) {
+      last = idx;
+      clearCritHighlights();
+      if(idx >= 0 && cards[idx]) cards[idx].classList.add('lit');
+    }
+  };
+  audEl.addEventListener('timeupdate', critListener);
+  audEl.addEventListener('ended', clearCritHighlights, {once:true});
 }
 
-/* ── 3D Sphere ─────────────────────────────── */
+/* ── Floating Particles ──────────────────────── */
 (function(){
   const canvas = document.getElementById('hero-sphere');
   if(!canvas) return;
   const ctx = canvas.getContext('2d');
   const W = canvas.width, H = canvas.height;
-  const R = 138, N = 180;
-  const golden = Math.PI * (3 - Math.sqrt(5));
-  const dots = [];
-  for(let i = 0; i < N; i++){
-    const y = 1 - (i/(N-1)) * 2;
-    const r = Math.sqrt(1 - y*y);
-    const theta = golden * i;
-    dots.push({x: Math.cos(theta)*r, y, z: Math.sin(theta)*r});
-  }
-  let angle = 0;
+  const N = 55;
+  const particles = Array.from({length: N}, () => ({
+    x: Math.random() * W,
+    y: Math.random() * H,
+    r: 2 + Math.random() * 6,
+    vx: (Math.random() - 0.5) * 0.4,
+    vy: (Math.random() - 0.5) * 0.4,
+    alpha: 0.12 + Math.random() * 0.55,
+    pulse: Math.random() * Math.PI * 2,
+    pspeed: 0.008 + Math.random() * 0.016
+  }));
   function draw(){
     ctx.clearRect(0, 0, W, H);
-    angle += 0.0045;
-    const proj = dots.map(d => {
-      const x = d.x * Math.cos(angle) - d.z * Math.sin(angle);
-      const z = d.x * Math.sin(angle) + d.z * Math.cos(angle);
-      return { px: W/2 + x*R, py: H/2 + d.y*R, depth: (z+1)/2 };
-    }).sort((a,b) => a.depth - b.depth);
-    proj.forEach(p => {
-      const size = 1.5 + p.depth * 4.5;
-      const alpha = 0.08 + p.depth * 0.92;
+    particles.forEach(p => {
+      p.x += p.vx;
+      p.y += p.vy;
+      p.pulse += p.pspeed;
+      if(p.x < -10) p.x = W + 10;
+      if(p.x > W + 10) p.x = -10;
+      if(p.y < -10) p.y = H + 10;
+      if(p.y > H + 10) p.y = -10;
+      const a = p.alpha * (0.7 + 0.3 * Math.sin(p.pulse));
       ctx.beginPath();
-      ctx.arc(p.px, p.py, size, 0, Math.PI*2);
-      ctx.fillStyle = `rgba(214,64,0,${alpha.toFixed(2)})`;
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+      ctx.fillStyle = `rgba(214,64,0,${a.toFixed(2)})`;
       ctx.fill();
     });
     requestAnimationFrame(draw);
