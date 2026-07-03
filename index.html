@@ -864,8 +864,7 @@ const secObs = new IntersectionObserver((entries) => {
         const audIdx = SEC_AUD[id];
         if (audIdx !== undefined) setTimeout(() => {
           playAud(audIdx);
-          const audEl = document.getElementById('aud' + audIdx);
-          if (audEl) startCritHighlight(id, audEl);
+          startCritHighlight(id);
         }, 350);
       }
     }
@@ -923,7 +922,7 @@ function startPresentation() {
   setTimeout(() => playAud(0), 400);
 }
 
-/* ── Criteria Highlight — timestamps reais ──── */
+/* ── Criteria Highlight — setTimeout puro ───── */
 const CRIT_MAP = {
   's-gdd':'cards-gdd','s-avm':'cards-avm',
   's-cec':'cards-cec','s-pdc':'cards-pdc','s-eng':'cards-eng'
@@ -931,37 +930,31 @@ const CRIT_MAP = {
 const CRIT_TIMES = {
   's-gdd': [4.9, 10.0, 13.4, 16.6],
   's-avm': [5.4, 10.2, 14.7, 19.0, 23.2, 25.9],
-  's-cec': [0.5, 4.7,  9.7, 16.5, 26.6],
-  's-pdc': [2.5, 6.9, 12.9, 15.8, 24.2],
+  's-cec': [0.5,  4.7,  9.7, 16.5, 26.6],
+  's-pdc': [2.5,  6.9, 12.9, 15.8, 24.2],
   's-eng': [0.5],
 };
-let critListener = null;
+let critTimers = [];
 
 function clearCritHighlights() {
   document.querySelectorAll('.cc.lit').forEach(el => el.classList.remove('lit'));
 }
 
-function startCritHighlight(secId, audEl) {
+function startCritHighlight(secId) {
+  critTimers.forEach(t => clearTimeout(t));
+  critTimers = [];
   clearCritHighlights();
-  if(critListener) { audEl.removeEventListener('timeupdate', critListener); critListener = null; }
   const containerId = CRIT_MAP[secId];
   const times = CRIT_TIMES[secId];
-  if(!containerId || !times) return;
+  if (!containerId || !times) return;
   const cards = Array.from(document.querySelectorAll('#' + containerId + ' .cc'));
-  if(!cards.length) return;
-  let last = -1;
-  critListener = function() {
-    const t = audEl.currentTime;
-    let idx = -1;
-    for(let i = times.length - 1; i >= 0; i--) { if(t >= times[i]) { idx = i; break; } }
-    if(idx !== last) {
-      last = idx;
+  if (!cards.length) return;
+  times.forEach((t, i) => {
+    critTimers.push(setTimeout(() => {
       clearCritHighlights();
-      if(idx >= 0 && cards[idx]) cards[idx].classList.add('lit');
-    }
-  };
-  audEl.addEventListener('timeupdate', critListener);
-  audEl.addEventListener('ended', clearCritHighlights, {once:true});
+      if (cards[i]) cards[i].classList.add('lit');
+    }, t * 1000));
+  });
 }
 
 /* ── Floating Particles (full screen) ───────── */
