@@ -330,7 +330,6 @@ body{
 <div id="splash" style="position:fixed;inset:0;background:#08080f;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;cursor:pointer" onclick="startPresentation()">
   <svg viewBox="0 0 42 42" fill="#D64000" width="56" height="56"><circle cx="17.5" cy="3" r="1.2"/><circle cx="21" cy="3" r="1.2"/><circle cx="24.5" cy="3" r="1.2"/><circle cx="13" cy="7.5" r="1.2"/><circle cx="17" cy="7.5" r="1.2"/><circle cx="21" cy="7.5" r="1.2"/><circle cx="25" cy="7.5" r="1.2"/><circle cx="29" cy="7.5" r="1.2"/><circle cx="9" cy="12" r="1.2"/><circle cx="13" cy="12" r="1.2"/><circle cx="17" cy="12" r="1.2"/><circle cx="21" cy="12" r="1.2"/><circle cx="25" cy="12" r="1.2"/><circle cx="29" cy="12" r="1.2"/><circle cx="33" cy="12" r="1.2"/><circle cx="7" cy="17" r="1.2"/><circle cx="11" cy="17" r="1.2"/><circle cx="15" cy="17" r="1.2"/><circle cx="19" cy="17" r="1.2"/><circle cx="23" cy="17" r="1.2"/><circle cx="27" cy="17" r="1.2"/><circle cx="31" cy="17" r="1.2"/><circle cx="35" cy="17" r="1.2"/><circle cx="7" cy="22" r="1.2"/><circle cx="11" cy="22" r="1.2"/><circle cx="15" cy="22" r="1.2"/><circle cx="19" cy="22" r="1.2"/><circle cx="23" cy="22" r="1.2"/><circle cx="27" cy="22" r="1.2"/><circle cx="31" cy="22" r="1.2"/><circle cx="35" cy="22" r="1.2"/><circle cx="9" cy="27" r="1.2"/><circle cx="13" cy="27" r="1.2"/><circle cx="17" cy="27" r="1.2"/><circle cx="21" cy="27" r="1.2"/><circle cx="25" cy="27" r="1.2"/><circle cx="29" cy="27" r="1.2"/><circle cx="33" cy="27" r="1.2"/><circle cx="13" cy="32" r="1.2"/><circle cx="17" cy="32" r="1.2"/><circle cx="21" cy="32" r="1.2"/><circle cx="25" cy="32" r="1.2"/><circle cx="29" cy="32" r="1.2"/><circle cx="17.5" cy="37" r="1.2"/><circle cx="21" cy="37" r="1.2"/><circle cx="24.5" cy="37" r="1.2"/></svg>
   <div style="color:#fff;font-size:2rem;font-weight:900;letter-spacing:-.02em">JUNTOS <span style="color:#D64000">2026</span></div>
-  <div style="color:rgba(255,255,255,.45);font-size:.9rem;letter-spacing:.12em;text-transform:uppercase">Clique para iniciar com narração</div>
   <div style="background:#D64000;color:#fff;font-weight:700;font-size:.85rem;letter-spacing:.1em;text-transform:uppercase;padding:14px 42px;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 100%,0 100%)">▶ Iniciar</div>
 </div>
 
@@ -410,9 +409,7 @@ body{
       <div class="h-sub a d3">Critérios de Pontuação &nbsp;·&nbsp; Q3 2026</div>
       <div class="h-line"></div>
     </div>
-    <div class="hr a fr d2">
-      <canvas id="hero-sphere" width="340" height="340"></canvas>
-    </div>
+    <canvas id="hero-sphere" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:2"></canvas>
   </div>
 </section>
 
@@ -656,22 +653,22 @@ body{
 
 <!-- ══ AUDIO POOL ════════════════════════════════════════ -->
 <div style="display:none">
-  <audio id="aud0"  src="audio/slide_00.mp3" preload="auto"></audio>
-  <audio id="aud1"  src="audio/slide_01.mp3" preload="auto"></audio>
-  <audio id="aud2"  src="audio/slide_02.mp3" preload="auto"></audio>
-  <audio id="aud3"  src="audio/slide_03.mp3" preload="auto"></audio>
-  <audio id="aud4"  src="audio/slide_04.mp3" preload="auto"></audio>
-  <audio id="aud5"  src="audio/slide_05.mp3" preload="auto"></audio>
-  <audio id="aud6"  src="audio/slide_06.mp3" preload="auto"></audio>
-  <audio id="aud7"  src="audio/slide_07.mp3" preload="auto"></audio>
-  <audio id="aud8"  src="audio/slide_08.mp3" preload="auto"></audio>
-  <audio id="aud9"  src="audio/slide_09.mp3" preload="auto"></audio>
-  <audio id="aud10" src="audio/slide_10.mp3" preload="auto"></audio>
-  <audio id="aud11" src="audio/slide_11.mp3" preload="auto"></audio>
-  <audio id="aud12" src="audio/slide_12.mp3" preload="auto"></audio>
-  <audio id="aud13" src="audio/slide_13.mp3" preload="auto"></audio>
-  <audio id="aud14" src="audio/slide_14.mp3" preload="auto"></audio>
-  <audio id="aud15" src="audio/slide_15.mp3" preload="auto"></audio>
+  <audio id="aud0"  src="slide_00.mp3" preload="auto"></audio>
+  <audio id="aud1"  src="slide_01.mp3" preload="auto"></audio>
+  <audio id="aud2"  src="slide_02.mp3" preload="auto"></audio>
+  <audio id="aud3"  src="slide_03.mp3" preload="auto"></audio>
+  <audio id="aud4"  src="slide_04.mp3" preload="auto"></audio>
+  <audio id="aud5"  src="slide_05.mp3" preload="auto"></audio>
+  <audio id="aud6"  src="slide_06.mp3" preload="auto"></audio>
+  <audio id="aud7"  src="slide_07.mp3" preload="auto"></audio>
+  <audio id="aud8"  src="slide_08.mp3" preload="auto"></audio>
+  <audio id="aud9"  src="slide_09.mp3" preload="auto"></audio>
+  <audio id="aud10" src="slide_10.mp3" preload="auto"></audio>
+  <audio id="aud11" src="slide_11.mp3" preload="auto"></audio>
+  <audio id="aud12" src="slide_12.mp3" preload="auto"></audio>
+  <audio id="aud13" src="slide_13.mp3" preload="auto"></audio>
+  <audio id="aud14" src="slide_14.mp3" preload="auto"></audio>
+  <audio id="aud15" src="slide_15.mp3" preload="auto"></audio>
 </div>
 
 <script>
@@ -967,34 +964,41 @@ function startCritHighlight(secId, audEl) {
   audEl.addEventListener('ended', clearCritHighlights, {once:true});
 }
 
-/* ── Floating Particles ──────────────────────── */
+/* ── Floating Particles (full screen) ───────── */
 (function(){
   const canvas = document.getElementById('hero-sphere');
   if(!canvas) return;
   const ctx = canvas.getContext('2d');
-  const W = canvas.width, H = canvas.height;
-  const N = 55;
-  const particles = Array.from({length: N}, () => ({
-    x: Math.random() * W,
-    y: Math.random() * H,
-    r: 2 + Math.random() * 6,
-    vx: (Math.random() - 0.5) * 0.4,
-    vy: (Math.random() - 0.5) * 0.4,
-    alpha: 0.12 + Math.random() * 0.55,
-    pulse: Math.random() * Math.PI * 2,
-    pspeed: 0.008 + Math.random() * 0.016
-  }));
+  function resize(){
+    canvas.width  = canvas.offsetWidth  || window.innerWidth;
+    canvas.height = canvas.offsetHeight || window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+  const N = 70;
+  function makeParticle(){
+    return {
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: 1.5 + Math.random() * 7,
+      vx: (Math.random() - 0.5) * 0.35,
+      vy: (Math.random() - 0.5) * 0.35,
+      alpha: 0.1 + Math.random() * 0.5,
+      pulse: Math.random() * Math.PI * 2,
+      pspeed: 0.006 + Math.random() * 0.014
+    };
+  }
+  const particles = Array.from({length: N}, makeParticle);
   function draw(){
+    const W = canvas.width, H = canvas.height;
     ctx.clearRect(0, 0, W, H);
     particles.forEach(p => {
-      p.x += p.vx;
-      p.y += p.vy;
-      p.pulse += p.pspeed;
-      if(p.x < -10) p.x = W + 10;
-      if(p.x > W + 10) p.x = -10;
-      if(p.y < -10) p.y = H + 10;
-      if(p.y > H + 10) p.y = -10;
-      const a = p.alpha * (0.7 + 0.3 * Math.sin(p.pulse));
+      p.x += p.vx; p.y += p.vy; p.pulse += p.pspeed;
+      if(p.x < -12) p.x = W + 12;
+      if(p.x > W+12) p.x = -12;
+      if(p.y < -12) p.y = H + 12;
+      if(p.y > H+12) p.y = -12;
+      const a = p.alpha * (0.65 + 0.35 * Math.sin(p.pulse));
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
       ctx.fillStyle = `rgba(214,64,0,${a.toFixed(2)})`;
