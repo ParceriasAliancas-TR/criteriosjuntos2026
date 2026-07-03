@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JUNTOS 2026 · Critérios Q3 · Thomson Reuters</title>
+<style>
+/* ═══════════════════════════════════════════════════════════
+   DESIGN SYSTEM — THOMSON REUTERS
+═══════════════════════════════════════════════════════════ */
+:root {
+  --or:#D64000; --or2:#ff6620; --or3:rgba(214,64,0,.12);
+  --gn:#123015; --gn2:#2d6b38; --gn3:rgba(18,48,21,.85);
+  --dk:#06090a; --dk2:#0a0f0b; --dk3:#0e1410;
+  --wh:#fff; --lgt:#c8d0d8; --red:#c0281e; --gold:#f0c040;
+  --nav:60px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{font-size:16px;scroll-behavior:smooth}
+body{
+  font-family:'Calibri','Segoe UI',Arial,sans-serif;
+  background:var(--dk); color:var(--wh);
+  overflow-x:hidden;
+}
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:var(--dk)}
+::-webkit-scrollbar-thumb{background:var(--or);border-radius:2px}
+::selection{background:rgba(214,64,0,.35)}
+
+/* ═══════════════════════════════════════════════════════════
+   NAVIGATION
+═══════════════════════════════════════════════════════════ */
+#nav{
+  position:fixed;top:0;left:0;right:0;height:var(--nav);
+  background:rgba(6,9,10,.94);backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(214,64,0,.18);
+  display:flex;align-items:center;padding:0 40px;gap:28px;z-index:200;
+}
+.nav-brand{display:flex;align-items:center;gap:11px;text-decoration:none;flex-shrink:0}
+.nav-brand svg{width:26px;height:26px;flex-shrink:0}
+.nav-brand-text{line-height:1.25}
+.nav-brand-name{font-size:.7rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--wh)}
+.nav-brand-camp{font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--or);font-weight:700}
+
+.nav-pills{display:flex;gap:2px;flex:1;justify-content:center;list-style:none}
+.nav-pills a{
+  font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(255,255,255,.38);text-decoration:none;padding:5px 11px;
+  border-radius:2px;transition:all .18s;
+}
+.nav-pills a:hover,.nav-pills a.on{color:var(--or);background:rgba(214,64,0,.1)}
+
+.nav-ctl{display:flex;gap:8px;flex-shrink:0}
+.nav-btn{
+  background:transparent;border:1px solid rgba(214,64,0,.35);color:var(--or);
+  font-family:inherit;font-size:.7rem;font-weight:700;letter-spacing:.08em;
+  padding:6px 16px;cursor:pointer;transition:all .18s;
+}
+.nav-btn:hover{background:var(--or);color:var(--wh);border-color:var(--or)}
+.nav-btn.muted{opacity:.4;text-decoration:line-through}
+
+/* ═══════════════════════════════════════════════════════════
+   PROGRESS + NARR BAR
+═══════════════════════════════════════════════════════════ */
+#pgbar{
+  position:fixed;top:var(--nav);left:0;height:3px;width:0%;z-index:201;
+  background:linear-gradient(90deg,var(--or),var(--or2));
+  box-shadow:0 0 12px rgba(214,64,0,.7);transition:width .4s ease;
+}
+#narrbar{position:fixed;bottom:0;left:0;right:0;height:3px;background:rgba(214,64,0,.2);z-index:200}
+#narrbar-fill{height:100%;background:linear-gradient(90deg,var(--or),var(--or2));width:0%;transition:width .1s linear;box-shadow:0 0 8px rgba(214,64,0,.5)}
+
+/* ═══════════════════════════════════════════════════════════
+   SIDE DOTS
+═══════════════════════════════════════════════════════════ */
+#dots{
+  position:fixed;right:20px;top:50%;transform:translateY(-50%);
+  display:flex;flex-direction:column;gap:12px;z-index:150;
+}
+.dot{
+  width:7px;height:7px;border-radius:50%;
+  background:rgba(255,255,255,.15);cursor:pointer;
+  transition:all .25s;position:relative;
+}
+.dot::after{
+  content:attr(data-lbl);
+  position:absolute;right:16px;top:50%;transform:translateY(-50%);
+  font-size:.62rem;color:var(--or);white-space:nowrap;opacity:0;
+  pointer-events:none;transition:opacity .18s;
+  background:rgba(6,9,10,.92);padding:3px 9px;border-radius:2px;
+}
+.dot:hover::after{opacity:1}
+.dot.on{background:var(--or);transform:scale(1.5)}
+.dot:hover{background:rgba(214,64,0,.6)}
+
+/* ═══════════════════════════════════════════════════════════
+   SECTIONS
+═══════════════════════════════════════════════════════════ */
+.sec{
+  min-height:100vh;position:relative;overflow:hidden;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:calc(var(--nav) + 52px) 80px 64px;
+}
+/* accent bars */
+.sec-ot{position:absolute;top:var(--nav);left:0;right:0;height:4px;z-index:5;
+  background:linear-gradient(90deg,var(--or) 0%,rgba(214,64,0,.3) 40%,transparent 70%)}
+.sec-ob{position:absolute;bottom:0;left:0;right:0;height:3px;z-index:5;
+  background:linear-gradient(90deg,var(--gn2) 0%,transparent 35%)}
+.sec-ol{position:absolute;top:0;left:0;bottom:0;width:4px;z-index:5;
+  background:linear-gradient(180deg,var(--or),var(--gn2) 60%,transparent)}
+
+/* section backgrounds */
+#s-hero  {background:radial-gradient(ellipse at 15% 55%,rgba(18,48,21,.9) 0%,var(--dk) 55%),radial-gradient(ellipse at 90% 20%,rgba(214,64,0,.08) 0%,transparent 50%)}
+#s-gdd   {background:radial-gradient(ellipse at 82% 42%,rgba(214,64,0,.11) 0%,var(--dk) 50%),radial-gradient(ellipse at 10% 80%,rgba(18,48,21,.4) 0%,transparent 40%)}
+#s-avm   {background:radial-gradient(ellipse at 12% 50%,rgba(18,48,21,.8) 0%,var(--dk) 48%),radial-gradient(ellipse at 88% 25%,rgba(214,64,0,.07) 0%,transparent 40%)}
+#s-cec   {background:radial-gradient(ellipse at 85% 62%,rgba(214,64,0,.1) 0%,var(--dk) 52%),radial-gradient(ellipse at 15% 30%,rgba(18,48,21,.5) 0%,transparent 40%)}
+#s-pdc   {background:radial-gradient(ellipse at 18% 40%,rgba(18,48,21,.75) 0%,var(--dk) 48%)}
+#s-eng   {background:radial-gradient(ellipse at 78% 35%,rgba(214,64,0,.12) 0%,var(--dk) 52%)}
+#s-regras{background:radial-gradient(ellipse at 50% 50%,rgba(18,48,21,.6) 0%,var(--dk) 60%)}
+#s-sol   {background:radial-gradient(ellipse at 30% 65%,rgba(214,64,0,.09) 0%,var(--dk) 52%)}
+#s-close {background:radial-gradient(ellipse at 50% 35%,rgba(214,64,0,.14) 0%,var(--dk) 58%)}
+#s-lucim {background:var(--gn)}
+
+/* sphere watermark */
+.wmsph{position:absolute;pointer-events:none;z-index:1;opacity:.055;fill:var(--or)}
+
+/* ── Video background ── */
+.sec-vid{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;z-index:0;
+  filter:grayscale(100%) brightness(0.52);
+}
+.sec-vid-ov{
+  position:absolute;inset:0;z-index:1;
+  background:linear-gradient(135deg,rgba(18,48,21,.65) 0%,rgba(6,9,10,.5) 100%);
+}
+/* when video is present, blobs add the color accent */
+
+/* ═══════════════════════════════════════════════════════════
+   TWO-COLUMN LAYOUT
+═══════════════════════════════════════════════════════════ */
+.tc{
+  display:grid;grid-template-columns:1fr 1.15fr;gap:70px;
+  align-items:start;position:relative;z-index:3;
+  max-width:1280px;margin:0 auto;width:100%;
+}
+
+/* ── LEFT COL ── */
+.lc{display:flex;flex-direction:column;gap:18px}
+
+.pnum{
+  font-size:clamp(5rem,11vw,9rem);font-weight:900;line-height:1;
+  color:rgba(214,64,0,.12);letter-spacing:-.04em;margin-bottom:-20px;
+  font-variant-numeric:tabular-nums;
+}
+.ptag{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--or);color:var(--wh);
+  font-size:.76rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  padding:5px 15px;width:fit-content;
+  clip-path:polygon(0 0,calc(100% - 9px) 0,100% 100%,0 100%);
+}
+.ptag-gn{background:var(--gn2)}
+.ptag-tl{background:#1e8ca0}
+
+.ptitle{font-size:clamp(1.7rem,3.5vw,2.8rem);font-weight:700;color:var(--wh);line-height:1.1}
+.psub{font-size:.98rem;color:var(--lgt);letter-spacing:.02em}
+.aline{width:72px;height:3px;background:linear-gradient(90deg,var(--or),var(--gn2));margin:2px 0}
+
+/* narration text — static, no karaoke */
+.kara{
+  font-size:clamp(.88rem,1.45vw,1.02rem);line-height:1.9;
+  color:rgba(255,255,255,.55);position:relative;
+}
+.kara .w{display:inline}
+
+
+/* ── RIGHT COL (cards) ── */
+.rc{display:flex;flex-direction:column;gap:9px}
+
+.cc{
+  display:flex;align-items:center;gap:12px;
+  background:rgba(255,255,255,.042);border-left:4px solid var(--or);
+  padding:8px 14px;
+  opacity:0;transform:translateX(44px);
+  transition:opacity .5s cubic-bezier(.22,1,.36,1),transform .5s cubic-bezier(.22,1,.36,1),background .18s,border-color .18s;
+}
+.cc:hover{background:rgba(214,64,0,.09);transform:translateX(5px)!important;cursor:default}
+.cc.in{opacity:1;transform:translateX(0)!important}
+.cc.cn{border-color:var(--red);background:rgba(192,40,30,.07)}
+.cc.cn:hover{background:rgba(192,40,30,.14)}
+.cc.ch{border-color:var(--gold);background:rgba(240,192,64,.06)}
+
+.cpts{
+  font-size:clamp(1.1rem,1.9vw,1.6rem);font-weight:800;
+  min-width:66px;text-align:right;flex-shrink:0;
+}
+.cpos{color:#4ade80}.cneg{color:var(--red)}.cgol{color:#4ade80}
+
+.cbody{flex:1}
+.clbl{font-size:.58rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:2px}
+.crule{font-size:.78rem;color:rgba(255,255,255,.85);line-height:1.38}
+.crule strong{color:var(--or)}
+.crule .rn{color:var(--red);font-weight:700}
+
+.cmins{font-size:.65rem;color:rgba(255,255,255,.28);letter-spacing:.05em;padding:6px 0 0}
+.cmins span{color:rgba(214,64,0,.75);font-weight:700}
+
+/* ═══════════════════════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════════════════════ */
+.hi{display:flex;align-items:center;gap:64px;max-width:1280px;margin:0 auto;width:100%;position:relative;z-index:3}
+.hl{flex:1}
+.hr{flex:0 0 clamp(180px,26vw,340px);display:flex;align-items:center;justify-content:center}
+.hr img{width:100%;animation:flt 4s ease-in-out infinite;filter:drop-shadow(0 20px 50px rgba(214,64,0,.4))}
+
+.h-eye{display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(255,255,255,.16);color:rgba(255,255,255,.48);font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:5px 15px;margin-bottom:22px}
+.h-title{font-size:clamp(4rem,9.5vw,7.5rem);font-weight:900;line-height:1;letter-spacing:-.025em;margin-bottom:10px}
+.h-title .or{color:var(--or)}
+.h-sub{font-size:clamp(1rem,2vw,1.4rem);color:rgba(255,255,255,.5);letter-spacing:.04em;margin-bottom:26px}
+.h-line{width:90px;height:3px;background:var(--or);margin-bottom:24px}
+.h-ed{font-size:.76rem;color:rgba(255,255,255,.28);letter-spacing:.1em;text-transform:uppercase;margin-top:20px}
+
+.h-cta{
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--or);color:var(--wh);border:none;font-family:inherit;
+  font-size:.92rem;font-weight:700;letter-spacing:.08em;padding:14px 38px;cursor:pointer;
+  clip-path:polygon(0 0,calc(100% - 12px) 0,100% 100%,0 100%);transition:all .2s;
+}
+.h-cta:hover{background:#c03800;transform:scale(1.04);box-shadow:0 8px 32px rgba(214,64,0,.5)}
+
+
+/* ═══════════════════════════════════════════════════════════
+   SINGLE-COL SECTIONS
+═══════════════════════════════════════════════════════════ */
+.sc1{max-width:1100px;margin:0 auto;width:100%;position:relative;z-index:3}
+
+/* regras */
+.rrow{
+  display:flex;align-items:flex-start;gap:16px;
+  padding:15px 0;border-bottom:1px solid rgba(255,255,255,.05);
+  opacity:0;transform:translateY(22px);transition:opacity .5s,transform .5s;
+}
+.rrow.in{opacity:1;transform:translateY(0)}
+.rarr{color:var(--or);font-size:1rem;margin-top:4px;flex-shrink:0}
+.rtxt{font-size:1.02rem;color:rgba(255,255,255,.82);line-height:1.65}
+.rtxt strong{color:var(--or)}
+
+/* soluções grid */
+.sol{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:26px}
+.sol-col-name{font-size:.9rem;font-weight:800;letter-spacing:.12em;color:var(--wh);padding:6px 0 6px 14px;margin-bottom:8px;position:relative}
+.sol-col-name::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:4px;height:22px;border-radius:2px}
+.tax::before{background:var(--or)}
+.leg::before{background:var(--gn2)}
+.gtm::before{background:#1e8ca0}
+.sol-i{display:flex;align-items:center;gap:9px;font-size:.92rem;color:rgba(255,255,255,.78);padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.sdot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+
+/* closing */
+.clo{display:flex;flex-direction:column;align-items:center;text-align:center;gap:0;max-width:900px;margin:0 auto;position:relative;z-index:3}
+.clo-eyebrow{font-size:clamp(.72rem,1.2vw,.9rem);font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:14px}
+.clo-big{font-size:clamp(5rem,13vw,10rem);font-weight:900;color:var(--or);letter-spacing:-.03em;line-height:.9;text-shadow:0 0 60px rgba(214,64,0,.5)}
+.clo-yr{font-size:clamp(1.8rem,4.5vw,3.5rem);font-weight:300;color:rgba(255,255,255,.55);letter-spacing:.18em;margin-bottom:28px}
+.clo-ln{width:80px;height:3px;background:var(--or);margin:0 auto 32px;box-shadow:0 0 12px rgba(214,64,0,.6)}
+.clo-ha{font-size:clamp(1rem,2vw,1.4rem);font-weight:400;color:rgba(255,255,255,.5);letter-spacing:.06em;line-height:1;margin-bottom:4px}
+.clo-anos{font-size:clamp(4.5rem,12vw,9.5rem);font-weight:900;color:var(--or);letter-spacing:-.02em;line-height:1;text-shadow:0 0 80px rgba(214,64,0,.6),0 0 30px rgba(214,64,0,.4);margin-bottom:6px}
+.clo-anos span{color:var(--wh);font-weight:300;font-size:.55em;letter-spacing:.1em;vertical-align:middle;margin-left:.15em}
+.clo-prm{font-size:clamp(1.4rem,3.5vw,2.8rem);font-weight:700;color:var(--wh);letter-spacing:.04em;line-height:1.2;text-transform:uppercase}
+.clo-bra{font-size:clamp(1.4rem,3.5vw,2.8rem);font-weight:700;letter-spacing:.04em;line-height:1.2;text-transform:uppercase}
+.clo-bra .or{color:var(--or)}
+.clo-stripe{width:100%;max-width:540px;height:2px;background:linear-gradient(90deg,transparent,var(--or),transparent);margin:22px auto 0;opacity:.6}
+
+/* lucimar */
+.luc{display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px;position:relative;z-index:3;max-width:700px;margin:0 auto}
+.luc-gr{font-size:clamp(1.1rem,2.2vw,1.6rem);color:rgba(255,255,255,.58);font-weight:400;letter-spacing:.04em}
+.luc-nm{font-size:clamp(4rem,9.5vw,7.5rem);font-weight:700;color:var(--wh);letter-spacing:-.02em;line-height:1}
+.luc-ln{width:80px;height:3px;background:var(--or);margin:18px auto 0}
+.luc-tr{font-size:.72rem;color:rgba(255,255,255,.25);letter-spacing:.12em;text-transform:uppercase;margin-top:14px}
+
+/* ═══════════════════════════════════════════════════════════
+   ANIMATIONS
+═══════════════════════════════════════════════════════════ */
+@keyframes flt{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+@keyframes glowPulse{0%,100%{text-shadow:0 0 60px rgba(214,64,0,.5),0 0 20px rgba(214,64,0,.3)}50%{text-shadow:0 0 90px rgba(214,64,0,.8),0 0 40px rgba(214,64,0,.5),0 0 10px rgba(255,120,0,.4)}}
+@keyframes scaleIn{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:scale(1)}}
+.clo-anos.in{animation:scaleIn .8s cubic-bezier(.34,1.56,.64,1) both,glowPulse 3s ease-in-out 1s infinite!important}
+.clo-big.in{animation:fuP .7s cubic-bezier(.22,1,.36,1) both;text-shadow:0 0 60px rgba(214,64,0,.5)}
+@keyframes fuP{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fL {from{opacity:0;transform:translateX(-32px)}to{opacity:1;transform:translateX(0)}}
+@keyframes fR {from{opacity:0;transform:translateX(32px)}to{opacity:1;transform:translateX(0)}}
+@keyframes scIn{from{opacity:0;transform:scaleX(0)}to{opacity:1;transform:scaleX(1)}}
+
+.a{opacity:0}
+.a.in{animation:fuP .65s cubic-bezier(.22,1,.36,1) both}
+.a.in.fl{animation-name:fL}
+.a.in.fr{animation-name:fR}
+
+.d0{animation-delay:0s}.d1{animation-delay:.1s}.d2{animation-delay:.25s}
+.d3{animation-delay:.42s}.d4{animation-delay:.6s}.d5{animation-delay:.78s}
+.d6{animation-delay:.96s}.d7{animation-delay:1.14s}.d8{animation-delay:1.32s}
+.aline,.h-line{animation:scIn .4s cubic-bezier(.22,1,.36,1) .65s both;transform-origin:left}
+
+/* ═══════════════════════════════════════════════════════════
+   ORANGE GLOW BLOB (decorative background)
+═══════════════════════════════════════════════════════════ */
+.blob{position:absolute;border-radius:50%;pointer-events:none;z-index:0;filter:blur(80px)}
+.blob-or{background:radial-gradient(circle,rgba(214,64,0,.18) 0%,transparent 70%)}
+.blob-gn{background:radial-gradient(circle,rgba(18,48,21,.5) 0%,transparent 70%)}
+
+/* ═══════════════════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════════════════ */
+@media(max-width:900px){
+  .tc{grid-template-columns:1fr;gap:32px}
+  .nav-pills{display:none}
+  .sec{padding:calc(var(--nav) + 28px) 24px 56px}
+  #dots{display:none}
+  .hi{flex-direction:column;gap:32px}
+  .sol{grid-template-columns:1fr;gap:16px}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ NAV ══════════════════════════════════════════════ -->
+<nav id="nav">
+  <a class="nav-brand" href="#s-hero">
+    <svg viewBox="0 0 42 42" fill="#D64000">
+      <circle cx="17.5" cy="3" r="1.2"/><circle cx="21" cy="3" r="1.2"/><circle cx="24.5" cy="3" r="1.2"/>
+      <circle cx="13" cy="7.5" r="1.2"/><circle cx="17" cy="7.5" r="1.2"/><circle cx="21" cy="7.5" r="1.2"/><circle cx="25" cy="7.5" r="1.2"/><circle cx="29" cy="7.5" r="1.2"/>
+      <circle cx="9" cy="12" r="1.2"/><circle cx="13" cy="12" r="1.2"/><circle cx="17" cy="12" r="1.2"/><circle cx="21" cy="12" r="1.2"/><circle cx="25" cy="12" r="1.2"/><circle cx="29" cy="12" r="1.2"/><circle cx="33" cy="12" r="1.2"/>
+      <circle cx="7" cy="17" r="1.2"/><circle cx="11" cy="17" r="1.2"/><circle cx="15" cy="17" r="1.2"/><circle cx="19" cy="17" r="1.2"/><circle cx="23" cy="17" r="1.2"/><circle cx="27" cy="17" r="1.2"/><circle cx="31" cy="17" r="1.2"/><circle cx="35" cy="17" r="1.2"/>
+      <circle cx="7" cy="22" r="1.2"/><circle cx="11" cy="22" r="1.2"/><circle cx="15" cy="22" r="1.2"/><circle cx="19" cy="22" r="1.2"/><circle cx="23" cy="22" r="1.2"/><circle cx="27" cy="22" r="1.2"/><circle cx="31" cy="22" r="1.2"/><circle cx="35" cy="22" r="1.2"/>
+      <circle cx="9" cy="27" r="1.2"/><circle cx="13" cy="27" r="1.2"/><circle cx="17" cy="27" r="1.2"/><circle cx="21" cy="27" r="1.2"/><circle cx="25" cy="27" r="1.2"/><circle cx="29" cy="27" r="1.2"/><circle cx="33" cy="27" r="1.2"/>
+      <circle cx="13" cy="32" r="1.2"/><circle cx="17" cy="32" r="1.2"/><circle cx="21" cy="32" r="1.2"/><circle cx="25" cy="32" r="1.2"/><circle cx="29" cy="32" r="1.2"/>
+      <circle cx="17.5" cy="37" r="1.2"/><circle cx="21" cy="37" r="1.2"/><circle cx="24.5" cy="37" r="1.2"/>
+    </svg>
+    <div class="nav-brand-text">
+      <div class="nav-brand-name">Thomson Reuters</div>
+      <div class="nav-brand-camp">Campanha JUNTOS 2026</div>
+    </div>
+  </a>
+  <ul class="nav-pills" id="navPills">
+    <li><a href="#s-hero">Início</a></li>
+    <li><a href="#s-gdd">GDD</a></li>
+    <li><a href="#s-avm">AVM</a></li>
+    <li><a href="#s-cec">CEC</a></li>
+    <li><a href="#s-pdc">PDC</a></li>
+    <li><a href="#s-eng">ENB</a></li>
+    <li><a href="#s-sol">Soluções</a></li>
+    <li><a href="#s-regras">Regras</a></li>
+  </ul>
+  <div class="nav-ctl">
+    <button class="nav-btn" id="btnAuto" onclick="toggleAuto()">⏸ Pausar</button>
+    <button class="nav-btn" id="btnSnd"  onclick="toggleSnd()">🔊 Narração</button>
+  </div>
+</nav>
+
+<div id="pgbar"></div>
+<div id="narrbar"><div id="narrbar-fill"></div></div>
+
+<!-- ══ SIDE DOTS ══════════════════════════════════════ -->
+<div id="dots">
+  <div class="dot on"  data-lbl="Início"       data-s="s-hero"  onclick="goto('s-hero')"></div>
+  <div class="dot"     data-lbl="GDD"          data-s="s-gdd"   onclick="goto('s-gdd')"></div>
+  <div class="dot"     data-lbl="AVM"          data-s="s-avm"   onclick="goto('s-avm')"></div>
+  <div class="dot"     data-lbl="CEC"          data-s="s-cec"   onclick="goto('s-cec')"></div>
+  <div class="dot"     data-lbl="PDC"          data-s="s-pdc"   onclick="goto('s-pdc')"></div>
+  <div class="dot"     data-lbl="Engajamento"  data-s="s-eng"   onclick="goto('s-eng')"></div>
+  <div class="dot"     data-lbl="Soluções"     data-s="s-sol"   onclick="goto('s-sol')"></div>
+  <div class="dot"     data-lbl="Regras"       data-s="s-regras" onclick="goto('s-regras')"></div>
+  <div class="dot"     data-lbl="Encerramento" data-s="s-close" onclick="goto('s-close')"></div>
+</div>
+
+<!-- ══ HERO ════════════════════════════════════════════ -->
+<section class="sec" id="s-hero">
+  <video class="sec-vid" src="13476740_3840_2160_120fps.mp4" autoplay loop muted playsinline></video>
+  <div class="sec-vid-ov"></div>
+  <div class="sec-ot"></div><div class="sec-ob"></div><div class="sec-ol"></div>
+  <div class="blob blob-or"  style="width:400px;height:400px;right:-50px;top:15%"></div>
+  <svg class="wmsph" style="right:-50px;top:50%;transform:translateY(-52%);width:450px;height:450px" viewBox="0 0 42 42">
+    <circle cx="17.5" cy="3" r="1.2"/><circle cx="21" cy="3" r="1.2"/><circle cx="24.5" cy="3" r="1.2"/>
+    <circle cx="13" cy="7.5" r="1.2"/><circle cx="17" cy="7.5" r="1.2"/><circle cx="21" cy="7.5" r="1.2"/><circle cx="25" cy="7.5" r="1.2"/><circle cx="29" cy="7.5" r="1.2"/>
+    <circle cx="9" cy="12" r="1.2"/><circle cx="13" cy="12" r="1.2"/><circle cx="17" cy="12" r="1.2"/><circle cx="21" cy="12" r="1.2"/><circle cx="25" cy="12" r="1.2"/><circle cx="29" cy="12" r="1.2"/><circle cx="33" cy="12" r="1.2"/>
+    <circle cx="7" cy="17" r="1.2"/><circle cx="11" cy="17" r="1.2"/><circle cx="15" cy="17" r="1.2"/><circle cx="19" cy="17" r="1.2"/><circle cx="23" cy="17" r="1.2"/><circle cx="27" cy="17" r="1.2"/><circle cx="31" cy="17" r="1.2"/><circle cx="35" cy="17" r="1.2"/>
+    <circle cx="7" cy="22" r="1.2"/><circle cx="11" cy="22" r="1.2"/><circle cx="15" cy="22" r="1.2"/><circle cx="19" cy="22" r="1.2"/><circle cx="23" cy="22" r="1.2"/><circle cx="27" cy="22" r="1.2"/><circle cx="31" cy="22" r="1.2"/><circle cx="35" cy="22" r="1.2"/>
+    <circle cx="9" cy="27" r="1.2"/><circle cx="13" cy="27" r="1.2"/><circle cx="17" cy="27" r="1.2"/><circle cx="21" cy="27" r="1.2"/><circle cx="25" cy="27" r="1.2"/><circle cx="29" cy="27" r="1.2"/><circle cx="33" cy="27" r="1.2"/>
+    <circle cx="13" cy="32" r="1.2"/><circle cx="17" cy="32" r="1.2"/><circle cx="21" cy="32" r="1.2"/><circle cx="25" cy="32" r="1.2"/><circle cx="29" cy="32" r="1.2"/>
+    <circle cx="17.5" cy="37" r="1.2"/><circle cx="21" cy="37" r="1.2"/><circle cx="24.5" cy="37" r="1.2"/>
+  </svg>
+  <div class="hi">
+    <div class="hl">
+      <div class="h-eye a d1">
+        <svg viewBox="0 0 42 42" width="14" height="14" fill="#D64000"><circle cx="17.5" cy="3" r="1.2"/><circle cx="21" cy="3" r="1.2"/><circle cx="24.5" cy="3" r="1.2"/><circle cx="13" cy="7.5" r="1.2"/><circle cx="17" cy="7.5" r="1.2"/><circle cx="21" cy="7.5" r="1.2"/><circle cx="25" cy="7.5" r="1.2"/><circle cx="29" cy="7.5" r="1.2"/><circle cx="9" cy="12" r="1.2"/><circle cx="13" cy="12" r="1.2"/><circle cx="17" cy="12" r="1.2"/><circle cx="21" cy="12" r="1.2"/><circle cx="25" cy="12" r="1.2"/><circle cx="29" cy="12" r="1.2"/><circle cx="33" cy="12" r="1.2"/><circle cx="7" cy="22" r="1.2"/><circle cx="11" cy="22" r="1.2"/><circle cx="15" cy="22" r="1.2"/><circle cx="19" cy="22" r="1.2"/><circle cx="23" cy="22" r="1.2"/><circle cx="27" cy="22" r="1.2"/><circle cx="31" cy="22" r="1.2"/><circle cx="35" cy="22" r="1.2"/><circle cx="9" cy="27" r="1.2"/><circle cx="13" cy="27" r="1.2"/><circle cx="17" cy="27" r="1.2"/><circle cx="21" cy="27" r="1.2"/><circle cx="25" cy="27" r="1.2"/><circle cx="29" cy="27" r="1.2"/><circle cx="33" cy="27" r="1.2"/><circle cx="13" cy="32" r="1.2"/><circle cx="17" cy="32" r="1.2"/><circle cx="21" cy="32" r="1.2"/><circle cx="25" cy="32" r="1.2"/><circle cx="29" cy="32" r="1.2"/><circle cx="17.5" cy="37" r="1.2"/><circle cx="21" cy="37" r="1.2"/><circle cx="24.5" cy="37" r="1.2"/></svg>
+        5ª Edição &nbsp;·&nbsp; Campanha de Vendas
+      </div>
+      <div class="h-title a d2">JUNTOS<br><span class="or">2026</span></div>
+      <div class="h-sub a d3">Critérios de Pontuação &nbsp;·&nbsp; Q3 2026</div>
+      <div class="h-line"></div>
+    </div>
+    <div class="hr a fr d2">
+      <img src="Grafico.gif" alt="JUNTOS 2026">
+    </div>
+  </div>
+</section>
+
+<!-- ══ GDD ═════════════════════════════════════════════ -->
+<section class="sec" id="s-gdd">
+  <video class="sec-vid" src="6774847-uhd_3840_2160_30fps.mp4" autoplay loop muted playsinline></video>
+  <div class="sec-vid-ov"></div>
+  <div class="sec-ot"></div><div class="sec-ob"></div><div class="sec-ol"></div>
+  <div class="blob blob-or" style="width:380px;height:380px;right:-60px;top:50%;transform:translateY(-50%);z-index:2"></div>
+  <svg class="wmsph" style="left:-40px;bottom:-30px;width:380px;height:380px" viewBox="0 0 42 42">
+    <circle cx="17.5" cy="3" r="1.2"/><circle cx="21" cy="3" r="1.2"/><circle cx="24.5" cy="3" r="1.2"/><circle cx="13" cy="7.5" r="1.2"/><circle cx="17" cy="7.5" r="1.2"/><circle cx="21" cy="7.5" r="1.2"/><circle cx="25" cy="7.5" r="1.2"/><circle cx="29" cy="7.5" r="1.2"/><circle cx="9" cy="12" r="1.2"/><circle cx="13" cy="12" r="1.2"/><circle cx="17" cy="12" r="1.2"/><circle cx="21" cy="12" r="1.2"/><circle cx="25" cy="12" r="1.2"/><circle cx="29" cy="12" r="1.2"/><circle cx="33" cy="12" r="1.2"/><circle cx="7" cy="17" r="1.2"/><circle cx="11" cy="17" r="1.2"/><circle cx="15" cy="17" r="1.2"/><circle cx="19" cy="17" r="1.2"/><circle cx="23" cy="17" r="1.2"/><circle cx="27" cy="17" r="1.2"/><circle cx="31" cy="17" r="1.2"/><circle cx="35" cy="17" r="1.2"/><circle cx="7" cy="22" r="1.2"/><circle cx="11" cy="22" r="1.2"/><circle cx="15" cy="22" r="1.2"/><circle cx="19" cy="22" r="1.2"/><circle cx="23" cy="22" r="1.2"/><circle cx="27" cy="22" r="1.2"/><circle cx="31" cy="22" r="1.2"/><circle cx="35" cy="22" r="1.2"/><circle cx="9" cy="27" r="1.2"/><circle cx="13" cy="27" r="1.2"/><circle cx="17" cy="27" r="1.2"/><circle cx="21" cy="27" r="1.2"/><circle cx="25" cy="27" r="1.2"/><circle cx="29" cy="27" r="1.2"/><circle cx="33" cy="27" r="1.2"/><circle cx="13" cy="32" r="1.2"/><circle cx="17" cy="32" r="1.2"/><circle cx="21" cy="32" r="1.2"/><circle cx="25" cy="32" r="1.2"/><circle cx="29" cy="32" r="1.2"/><circle cx="17.5" cy="37" r="1.2"/><circle cx="21" cy="37" r="1.2"/><circle cx="24.5" cy="37" r="1.2"/>
+  </svg>
+  <div class="tc">
+    <div class="lc">
+      <div class="pnum a d0">01</div>
+      <div class="ptag a d1">GDD · Geração de Demanda</div>
+      <div class="ptitle a d2">Abra oportunidades,<br>conquiste pontos</div>
+      <div class="aline d2"></div>
+      <div class="psub a d3">Pontuação por oportunidades abertas no Salesforce</div>
+    </div>
+    <div class="rc" id="cards-gdd">
+      <div class="cc">   <div class="cpts cpos">+400</div><div class="cbody"><div class="clbl">GDD1 · GENERAL BUSINESS</div><div class="crule">Parceiro que gerar a <strong>MAIOR QUANTIDADE</strong> de oportunidades aprovadas em suas categorias em <strong>General Business</strong> no quarter — somatória por quantidade</div></div></div>
+      <div class="cc ch"><div class="cpts cgol">+500</div><div class="cbody"><div class="clbl">GDD2 · GB NEW LOGO</div><div class="crule">Parceiro que gerar a <strong>MAIOR QUANTIDADE</strong> de oportunidades em <strong>General Business, New Logo</strong> no quarter — somatória por quantidade</div></div></div>
+      <div class="cc">   <div class="cpts cpos">+300</div><div class="cbody"><div class="clbl">SOLUÇÕES FOCO</div><div class="crule">Maior gerador de oportunidades nas <strong>Soluções Foco 2026</strong></div></div></div>
+      <div class="cc cn"><div class="cpts cneg">-100</div><div class="cbody"><div class="clbl">⚠ PENALIZAÇÃO</div><div class="crule"><span class="rn">Não atingir o mínimo</span> de oportunidades abertas da categoria no quarter</div></div></div>
+      <div class="cmins">Mínimos GDD: <span>Premium 36</span> &nbsp;|&nbsp; <span>Specialized 12</span> &nbsp;|&nbsp; <span>Member 4</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ AVM ═════════════════════════════════════════════ -->
+<section class="sec" id="s-avm">
+  <video class="sec-vid" src="15941886_3840_2160_30fps.mp4" autoplay loop muted playsinline></video>
+  <div class="sec-vid-ov"></div>
+  <div class="sec-ot"></div><div class="sec-ob"></div><div class="sec-ol"></div>
+  <div class="blob blob-or" style="width:380px;height:380px;left:-60px;top:50%;transform:translateY(-50%);z-index:2"></div>
+  <div class="tc">
+    <div class="lc">
+      <div class="pnum a d0">02</div>
+      <div class="ptag a d1">AVM · Aceleração de Vendas</div>
+      <div class="ptitle a d2">Feche negócios,<br>suba no ranking</div>
+      <div class="aline d2"></div>
+      <div class="psub a d3">Conversões, migrações e Soluções Foco no quarter</div>
+    </div>
+    <div class="rc" id="cards-avm">
+      <div class="cc ch"><div class="cpts cgol">+500</div><div class="cbody"><div class="clbl">AVM1 · MIGRAÇÃO</div><div class="crule">Para o parceiro que vender a <strong>MAIOR QUANTIDADE DE MIGRAÇÃO</strong> das soluções da <strong>BU GTM</strong></div></div></div>
+      <div class="cc">   <div class="cpts cpos">+300</div><div class="cbody"><div class="clbl">AVM3 · ACELERAÇÃO VENDA</div><div class="crule">Para <strong>CADA OPORTUNIDADE ABERTA E VENDIDA (WON) DENTRO</strong> do quarter</div></div></div>
+      <div class="cc">   <div class="cpts cpos">+300</div><div class="cbody"><div class="clbl">AVM4 · ACELERAÇÃO VENDA</div><div class="crule">Para o parceiro que <strong>SOMAR O MAIOR NÚMERO DE OPORTUNIDADES VENDIDAS — SOMA DO VALOR TOTAL (R$)</strong> — Considerado o valor bruto das oportunidades no quarter (closed won). Não vale para migrações e serviços.</div></div></div>
+      <div class="cc">   <div class="cpts cpos">+200</div><div class="cbody"><div class="clbl">AVM5 · ACELERAÇÃO VENDA</div><div class="crule">Para o parceiro que somar o <strong>MAIOR NÚMERO DE QUANTIDADE DE OPORTUNIDADES</strong> vendidas no quarter (closed won). Considerando a somatória por quantidade. Não vale para migrações e serviços.</div></div></div>
+      <div class="cc ch"><div class="cpts cgol">+400</div><div class="cbody"><div class="clbl">AVM6 · ACELERAÇÃO VENDA — SOLUÇÕES FOCO</div><div class="crule">Para o parceiro que vender <strong>OPORTUNIDADES NAS SOLUÇÕES FOCO</strong>. +50 pts por Solução Foco vendida, não ultrapassando os 400 pts máximos.<br><strong>TAX:</strong> Tax One Reforma, DFE, DFE Gov, DFE Gov Plus, IDT &nbsp;·&nbsp; <strong>GTM:</strong> Recof/Repetro &nbsp;·&nbsp; <strong>LEGAL:</strong> CoCounsel, Move to Cloud</div></div></div>
+      <div class="cc cn"><div class="cpts cneg">-100</div><div class="cbody"><div class="clbl">AVM7 · PENALIZAÇÃO</div><div class="crule"><span class="rn">Caso o parceiro NÃO ATINJA O MÍNIMO</span> de oportunidades <strong>VENDIDAS</strong> definidas para sua categoria no quarter</div></div></div>
+      <div class="cmins">Mínimos AVM7: <span>Premium 13</span> &nbsp;|&nbsp; <span>Specialized 04</span> &nbsp;|&nbsp; <span>Member 2</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CEC ═════════════════════════════════════════════ -->
+<section class="sec" id="s-cec">
+  <video class="sec-vid" src="7686674-hd_1920_1080_24fps.mp4" autoplay loop muted playsinline></video>
+  <div class="sec-vid-ov"></div>
+  <div class="sec-ot"></div><div class="sec-ob"></div><div class="sec-ol"></div>
+  <div class="blob blob-or" style="width:340px;height:340px;right:-40px;bottom:0;z-index:2"></div>
+  <div class="tc">
+    <div class="lc">
+      <div class="pnum a d0">03</div>
+      <div class="ptag a d1">CEC · Centro Educacional</div>
+      <div class="ptitle a d2">Conhecimento<br>vale pontos</div>
+      <div class="aline d2"></div>
+      <div class="psub a d3">Certificações, especializações e programas de capacitação</div>
+    </div>
+    <div class="rc" id="cards-cec">
+      <div class="cc ch"><div class="cpts cgol">+500</div><div class="cbody"><div class="clbl">CEC1 · CERTIFICAÇÕES SOLUÇÕES FOCO</div><div class="crule">Para o parceiro que obtiver <strong>MAIOR NÚMERO DE CERTIFICAÇÕES/ESPECIALIZAÇÃO</strong> nas <strong>SOLUÇÕES FOCO 2026</strong> no quarter.<br><strong>TAX:</strong> Tax One Reforma, DFE, DFE Gov, DFE Gov Plus, IDT &nbsp;·&nbsp; <strong>GTM:</strong> Recof/Repetro &nbsp;·&nbsp; <strong>LEGAL:</strong> CoCounsel, Move to Cloud</div></div></div>
+      <div class="cc ch"><div class="cpts cgol">+500</div><div class="cbody"><div class="clbl">CEC2 · CONSULTORES CERTIFICADOS ALOCADOS</div><div class="crule">Parceiro que assegurar alocação de <strong>CONSULTORES COM CERTIFICAÇÃO/ESPECIALIZAÇÃO NAS SOLUÇÕES DO ESCOPO DO PROJETO</strong> em todos os seus projetos em andamento no quarter. Independentemente do projeto ter sido iniciado em outro quarter ou antes de 2026.</div></div></div>
+      <div class="cc">   <div class="cpts cpos">+200</div><div class="cbody"><div class="clbl">CEC3 · PROFESSIONAL ONE &amp; PARCERIAS ACADÊMICAS</div><div class="crule"><strong>PARA CADA CONSULTOR</strong> que o parceiro contratar <strong>DOS PROGRAMAS PROFESSIONAL ONE E PARCERIAS ACADÊMICAS</strong>. Informar ao time de Enablement: nome completo, e-mail, cargo e programa (P1 ou PA) na planilha de contratações. Pontuação contabilizada no quarter indicado.</div></div></div>
+      <div class="cc">   <div class="cpts cpos">+300</div><div class="cbody"><div class="clbl">CEC4 · PARTICIPAÇÃO NOS PROGRAMAS</div><div class="crule"><strong>PELA PARTICIPAÇÃO</strong> nos Programas Professional One e Parcerias Acadêmicas, palestras, sessão de dúvidas, apresentação prática de produtos (Business Case). O parceiro receberá os pontos pela participação a cada quarter, independentemente da quantidade de eventos no período.</div></div></div>
+      <div class="cc cn"><div class="cpts cneg">-200</div><div class="cbody"><div class="clbl">CEC5 · PENALIZAÇÃO</div><div class="crule"><span class="rn">Aplicada ao parceiro que alocar, em qualquer projeto ativo no quarter, <strong>CONSULTORES SEM A CERTIFICAÇÃO OU ESPECIALIZAÇÃO</strong> exigida nas Soluções do escopo.</span> A penalização se aplica independentemente da quantidade. Consultores certificados em anos anteriores não geram penalização. Não se aplica a parceiros sem projetos ativos no quarter.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PDC ═════════════════════════════════════════════ -->
+<section class="sec" id="s-pdc">
+  <video class="sec-vid" src="6193976-uhd_3840_2160_25fps.mp4" autoplay loop muted playsinline></video>
+  <div class="sec-vid-ov"></div>
+  <div class="sec-ot"></div><div class="sec-ob"></div><div class="sec-ol"></div>
+  <div class="blob blob-gn" style="width:400px;height:400px;left:-40px;bottom:0;z-index:2"></div>
+  <div class="tc">
+    <div class="lc">
+      <div class="pnum a d0">04</div>
+      <div class="ptag a d1">PDC · Partner Delivery Center</div>
+      <div class="ptitle a d2">Qualidade na entrega<br>define campeões</div>
+      <div class="aline d2"></div>
+      <div class="psub a d3">Cases, CSAT, escalações e dados no Portal de Parceiros</div>
+    </div>
+    <div class="rc" id="cards-pdc">
+      <div class="cc ch"><div class="cpts cgol">+400</div><div class="cbody"><div class="clbl">PDC1 · CASE DE SUCESSO</div><div class="crule">Parceiro que <strong>CONCLUIR PROJETOS ELEGÍVEIS À CASE DE SUCESSO</strong> e contribuir para a elaboração do Case com o time de CS. A intermediação será feita pelo time PDC. A empresa do parceiro será citada como contribuidor. Pontuação computada no quarter de publicação do Case.</div></div></div>
+      <div class="cc">   <div class="cpts cpos">+300</div><div class="cbody"><div class="clbl">PDC2 · CSAT — FEEDBACK POSITIVO</div><div class="crule">Parceiro que receber <strong>FEEDBACK POSITIVO</strong> na pesquisa de satisfação do cliente (CSAT) no quarter, com <strong>≥ 80% DE RESPOSTAS POSITIVAS</strong>. Por quarter.</div></div></div>
+      <div class="cc">   <div class="cpts cpos">+200</div><div class="cbody"><div class="clbl">PDC3 · SEM ESCALAÇÃO</div><div class="crule">Parceiro que <strong>não tiver projetos escalados</strong> no quarter. O parceiro será informado quando um projeto seu for escalado.</div></div></div>
+      <div class="cc">   <div class="cpts cpos">+300</div><div class="cbody"><div class="clbl">PDC4 · DADOS ATUALIZADOS NO PORTAL</div><div class="crule">Parceiro que registrar os seus projetos nas devidas datas (planejamento ou onboarding), preencher corretamente todos os dados e <strong>mantê-los atualizados no Portal de Parceiros</strong>. Validação feita a cada mês, informada ao parceiro até o 5º dia do mês.</div></div></div>
+      <div class="cc cn"><div class="cpts cneg">-200</div><div class="cbody"><div class="clbl">⚠ PENALIZAÇÃO</div><div class="crule"><span class="rn">Se o FEEDBACK NEGATIVO FOR ≥ 50%</span> das respostas recebidas dos clientes do parceiro.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ENGAJAMENTO ══════════════════════════════════════ -->
+<section class="sec" id="s-eng">
+  <video class="sec-vid" src="6340286-uhd_3840_2160_25fps.mp4" autoplay loop muted playsinline></video>
+  <div class="sec-vid-ov"></div>
+  <div class="sec-ot"></div><div class="sec-ob"></div><div class="sec-ol"></div>
+  <div class="blob blob-or" style="width:340px;height:340px;right:-40px;top:20%;z-index:2"></div>
+  <div class="tc">
+    <div class="lc">
+      <div class="pnum a d0">05</div>
+      <div class="ptag a d1">ENB · Engajamento</div>
+      <div class="ptitle a d2">Apareça, participe,<br>vença</div>
+      <div class="aline d2"></div>
+      <div class="psub a d3">Presença e relacionamento com a Thomson Reuters</div>
+    </div>
+    <div class="rc" id="cards-eng">
+      <div class="cc ch"><div class="cpts cgol">+100</div><div class="cbody"><div class="clbl">ENGAJAMENTO</div><div class="crule">Para o parceiro que <strong>MAIS ENGAJAR</strong> nas iniciativas indicadas pela Thomson Reuters no quarter.</div></div></div>
+      <div class="cc">   <div class="cpts" style="font-size:1.3rem;min-width:76px;text-align:center">📋</div><div class="cbody"><div class="clbl">EXEMPLOS DE ATIVIDADES</div><div class="crule">Cadastro de projeto e atualização de documentação no <strong>Partner Portal</strong>, comunicação de go live, participações em <strong>PSCA, Friday Meetings, Laboratório de Produtos, Webinars, Treinamentos</strong> e atualização de dados.</div></div></div>
+      <div class="cc" style="flex-direction:column;align-items:center;gap:12px">
+        <div style="display:flex;align-items:center;gap:16px;width:100%">
+          <div class="cpts" style="font-size:1.3rem;min-width:76px;text-align:center">📌</div>
+          <div class="cbody"><div class="clbl">COMO IDENTIFICAR</div><div class="crule">Toda atividade valendo ponto terá um <strong>símbolo no comunicado (email)</strong> de sua divulgação/solicitação. <strong>Fique atento!</strong></div></div>
+        </div>
+        <video src="100pts.mp4" autoplay loop muted playsinline style="width:100%;max-width:420px;border-radius:4px;border:1px solid rgba(214,64,0,.3);display:block"></video>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SOLUÇÕES ══════════════════════════════════════════ -->
+<section class="sec" id="s-sol">
+  <video class="sec-vid" src="7692776-hd_1920_1080_25fps.mp4" autoplay loop muted playsinline></video>
+  <div class="sec-vid-ov"></div>
+  <div class="sec-ot"></div><div class="sec-ob"></div><div class="sec-ol"></div>
+  <div class="blob blob-or" style="width:320px;height:320px;left:10%;bottom:10%;z-index:2"></div>
+  <div class="sc1">
+    <div class="ptag a d1">Soluções Foco · Q3 2026</div>
+    <div class="ptitle a d2" style="margin-bottom:12px">Aposte nestas<br>soluções</div>
+    <div class="aline d2"></div>
+    <div class="psub a d3" style="margin-bottom:4px">Concentre seu time aqui e maximize a pontuação</div>
+    <div class="sol a d4">
+      <div>
+        <div class="sol-col-name tax">TAX — Tributário</div>
+        <div class="sol-i"><div class="sdot" style="background:#D64000"></div>Tax One Reforma</div>
+        <div class="sol-i"><div class="sdot" style="background:#D64000"></div>DFE · DFE Gov · DFE Gov Plus</div>
+        <div class="sol-i"><div class="sdot" style="background:#D64000"></div>IDT</div>
+      </div>
+      <div>
+        <div class="sol-col-name leg">LEGAL — Jurídico</div>
+        <div class="sol-i"><div class="sdot" style="background:#2d6b38"></div>CoCounsel</div>
+        <div class="sol-i"><div class="sdot" style="background:#2d6b38"></div>Move to Cloud</div>
+      </div>
+      <div>
+        <div class="sol-col-name gtm">GTM — Comércio Exterior</div>
+        <div class="sol-i"><div class="sdot" style="background:#1e8ca0"></div>Recof / Repetro</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ REGRAS ════════════════════════════════════════════ -->
+<section class="sec" id="s-regras">
+  <video class="sec-vid" src="8460998-uhd_3840_2160_25fps.mp4" autoplay loop muted playsinline></video>
+  <div class="sec-vid-ov"></div>
+  <div class="sec-ot"></div><div class="sec-ob"></div><div class="sec-ol"></div>
+  <div class="blob blob-gn" style="width:400px;height:400px;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2"></div>
+  <svg class="wmsph" style="right:-20px;top:50%;transform:translateY(-50%);width:320px;height:320px" viewBox="0 0 42 42">
+    <circle cx="17.5" cy="3" r="1.2"/><circle cx="21" cy="3" r="1.2"/><circle cx="24.5" cy="3" r="1.2"/><circle cx="13" cy="7.5" r="1.2"/><circle cx="17" cy="7.5" r="1.2"/><circle cx="21" cy="7.5" r="1.2"/><circle cx="25" cy="7.5" r="1.2"/><circle cx="29" cy="7.5" r="1.2"/><circle cx="9" cy="12" r="1.2"/><circle cx="13" cy="12" r="1.2"/><circle cx="17" cy="12" r="1.2"/><circle cx="21" cy="12" r="1.2"/><circle cx="25" cy="12" r="1.2"/><circle cx="29" cy="12" r="1.2"/><circle cx="33" cy="12" r="1.2"/><circle cx="7" cy="17" r="1.2"/><circle cx="11" cy="17" r="1.2"/><circle cx="15" cy="17" r="1.2"/><circle cx="19" cy="17" r="1.2"/><circle cx="23" cy="17" r="1.2"/><circle cx="27" cy="17" r="1.2"/><circle cx="31" cy="17" r="1.2"/><circle cx="35" cy="17" r="1.2"/><circle cx="7" cy="22" r="1.2"/><circle cx="11" cy="22" r="1.2"/><circle cx="15" cy="22" r="1.2"/><circle cx="19" cy="22" r="1.2"/><circle cx="23" cy="22" r="1.2"/><circle cx="27" cy="22" r="1.2"/><circle cx="31" cy="22" r="1.2"/><circle cx="35" cy="22" r="1.2"/><circle cx="9" cy="27" r="1.2"/><circle cx="13" cy="27" r="1.2"/><circle cx="17" cy="27" r="1.2"/><circle cx="21" cy="27" r="1.2"/><circle cx="25" cy="27" r="1.2"/><circle cx="29" cy="27" r="1.2"/><circle cx="33" cy="27" r="1.2"/><circle cx="13" cy="32" r="1.2"/><circle cx="17" cy="32" r="1.2"/><circle cx="21" cy="32" r="1.2"/><circle cx="25" cy="32" r="1.2"/><circle cx="29" cy="32" r="1.2"/><circle cx="17.5" cy="37" r="1.2"/><circle cx="21" cy="37" r="1.2"/><circle cx="24.5" cy="37" r="1.2"/>
+  </svg>
+  <div class="sc1">
+    <div class="pnum a d0" style="margin-bottom:-12px">⚖</div>
+    <div class="ptag a d1">Regras Gerais</div>
+    <div class="ptitle a d2" style="margin-bottom:8px">Como o Placar<br>é Calculado</div>
+    <div class="aline d2"></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 48px;margin-top:24px" id="regras-rows">
+      <div class="rrow a d3"><span class="rarr">▶</span><span class="rtxt">Apuração realizada por <strong>trimestre</strong> — Q2, Q3, Q4</span></div>
+      <div class="rrow a d4"><span class="rarr">▶</span><span class="rtxt">Parceiros competem <strong>dentro da mesma categoria</strong> de parceria</span></div>
+      <div class="rrow a d5"><span class="rarr">▶</span><span class="rtxt">Dados apurados via <strong>Salesforce, Portal de Parceiros e TR Training</strong></span></div>
+      <div class="rrow a d6"><span class="rarr">▶</span><span class="rtxt">Apenas oportunidades do segmento <strong>General Business</strong> são contabilizadas</span></div>
+      <div class="rrow a d7"><span class="rarr">▶</span><span class="rtxt">Oportunidades <strong>Closed Lost</strong> não são computadas</span></div>
+      <div class="rrow a d8"><span class="rarr">▶</span><span class="rtxt">Pontuação por parceiro, <strong>sem caráter acumulativo</strong> por atividade</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ VAMOS JUNTOS ══════════════════════════════════════ -->
+<section class="sec" id="s-podio">
+  <video class="sec-vid" src="12451924_1920_1080_30fps.mp4" autoplay loop muted playsinline></video>
+  <div style="position:absolute;inset:0;z-index:1;background:radial-gradient(ellipse at center,rgba(6,9,10,.45) 0%,rgba(6,9,10,.80) 100%)"></div>
+  <div class="sec-ot"></div><div class="sec-ob"></div>
+  <div style="position:absolute;inset:0;z-index:2;background:radial-gradient(ellipse 70% 50% at 50% 52%,rgba(214,64,0,.10) 0%,transparent 70%)"></div>
+  <div class="clo" style="z-index:3">
+    <div class="a d1 clo-eyebrow">Campanha de Vendas &nbsp;·&nbsp; Thomson Reuters</div>
+    <div class="a d2" style="font-size:clamp(2.8rem,6.5vw,5rem);font-weight:900;letter-spacing:.04em;line-height:1;color:#fff;text-transform:uppercase;margin-top:8px">VAMOS JUNTOS</div>
+    <div class="a d3" style="font-size:clamp(1.8rem,4.2vw,3.2rem);font-weight:700;letter-spacing:.08em;color:var(--or);text-transform:uppercase;margin-top:6px">para o pódio!</div>
+    <div class="clo-ln" style="margin-top:28px"></div>
+    <div class="a d4" style="font-size:clamp(.85rem,1.5vw,1.1rem);color:var(--lgt);margin-top:22px;max-width:560px;text-align:center;line-height:1.7">Cada ação do seu time vale pontos.<br>Cada venda, cada entrega, cada participação soma para a vitória.</div>
+  </div>
+</section>
+
+<!-- ══ ENCERRAMENTO ═════════════════════════════════════ -->
+<section class="sec" id="s-close">
+  <video class="sec-vid" src="12451924_1920_1080_30fps.mp4" autoplay loop muted playsinline></video>
+  <div style="position:absolute;inset:0;z-index:1;background:radial-gradient(ellipse at center,rgba(6,9,10,.55) 0%,rgba(6,9,10,.82) 100%)"></div>
+  <div class="sec-ot"></div><div class="sec-ob"></div>
+  <div style="position:absolute;inset:0;z-index:2;background:radial-gradient(ellipse 60% 40% at 50% 52%,rgba(214,64,0,.08) 0%,transparent 70%)"></div>
+  <svg class="wmsph" style="right:-20px;bottom:-20px;width:360px;height:360px;opacity:.04" viewBox="0 0 42 42">
+    <circle cx="17.5" cy="3" r="1.2"/><circle cx="21" cy="3" r="1.2"/><circle cx="24.5" cy="3" r="1.2"/><circle cx="13" cy="7.5" r="1.2"/><circle cx="17" cy="7.5" r="1.2"/><circle cx="21" cy="7.5" r="1.2"/><circle cx="25" cy="7.5" r="1.2"/><circle cx="29" cy="7.5" r="1.2"/><circle cx="9" cy="12" r="1.2"/><circle cx="13" cy="12" r="1.2"/><circle cx="17" cy="12" r="1.2"/><circle cx="21" cy="12" r="1.2"/><circle cx="25" cy="12" r="1.2"/><circle cx="29" cy="12" r="1.2"/><circle cx="33" cy="12" r="1.2"/><circle cx="7" cy="17" r="1.2"/><circle cx="11" cy="17" r="1.2"/><circle cx="15" cy="17" r="1.2"/><circle cx="19" cy="17" r="1.2"/><circle cx="23" cy="17" r="1.2"/><circle cx="27" cy="17" r="1.2"/><circle cx="31" cy="17" r="1.2"/><circle cx="35" cy="17" r="1.2"/><circle cx="7" cy="22" r="1.2"/><circle cx="11" cy="22" r="1.2"/><circle cx="15" cy="22" r="1.2"/><circle cx="19" cy="22" r="1.2"/><circle cx="23" cy="22" r="1.2"/><circle cx="27" cy="22" r="1.2"/><circle cx="31" cy="22" r="1.2"/><circle cx="35" cy="22" r="1.2"/><circle cx="9" cy="27" r="1.2"/><circle cx="13" cy="27" r="1.2"/><circle cx="17" cy="27" r="1.2"/><circle cx="21" cy="27" r="1.2"/><circle cx="25" cy="27" r="1.2"/><circle cx="29" cy="27" r="1.2"/><circle cx="33" cy="27" r="1.2"/><circle cx="13" cy="32" r="1.2"/><circle cx="17" cy="32" r="1.2"/><circle cx="21" cy="32" r="1.2"/><circle cx="25" cy="32" r="1.2"/><circle cx="29" cy="32" r="1.2"/><circle cx="17.5" cy="37" r="1.2"/><circle cx="21" cy="37" r="1.2"/><circle cx="24.5" cy="37" r="1.2"/>
+  </svg>
+  <div class="clo">
+    <div class="a d1 clo-eyebrow">Campanha de Vendas &nbsp;·&nbsp; Thomson Reuters</div>
+    <div class="a d2 clo-big">JUNTOS</div>
+    <div class="a d3 clo-yr">2 0 2 6</div>
+    <div class="clo-ln"></div>
+    <div class="a d4 clo-ha">Há</div>
+    <div class="a d5 clo-anos">5 <span>Anos</span></div>
+    <div class="a d6 clo-prm">Premiando os Melhores</div>
+    <div class="a d7 clo-bra">Parceiros do <span class="or">Brasil</span></div>
+    <div class="clo-stripe"></div>
+  </div>
+</section>
+
+<!-- ══ LUCIMAR ═══════════════════════════════════════════ -->
+<section class="sec" id="s-lucim" style="background:var(--gn)">
+  <div class="sec-ot" style="background:linear-gradient(90deg,#D64000 0%,rgba(214,64,0,.3) 50%,transparent 80%)"></div>
+  <div class="sec-ob" style="background:linear-gradient(90deg,#D64000 0%,rgba(214,64,0,.3) 50%,transparent 80%)"></div>
+  <svg class="wmsph" style="right:-30px;top:50%;transform:translateY(-50%);width:400px;height:400px;opacity:.1" viewBox="0 0 42 42">
+    <circle cx="17.5" cy="3" r="1.2"/><circle cx="21" cy="3" r="1.2"/><circle cx="24.5" cy="3" r="1.2"/><circle cx="13" cy="7.5" r="1.2"/><circle cx="17" cy="7.5" r="1.2"/><circle cx="21" cy="7.5" r="1.2"/><circle cx="25" cy="7.5" r="1.2"/><circle cx="29" cy="7.5" r="1.2"/><circle cx="9" cy="12" r="1.2"/><circle cx="13" cy="12" r="1.2"/><circle cx="17" cy="12" r="1.2"/><circle cx="21" cy="12" r="1.2"/><circle cx="25" cy="12" r="1.2"/><circle cx="29" cy="12" r="1.2"/><circle cx="33" cy="12" r="1.2"/><circle cx="7" cy="17" r="1.2"/><circle cx="11" cy="17" r="1.2"/><circle cx="15" cy="17" r="1.2"/><circle cx="19" cy="17" r="1.2"/><circle cx="23" cy="17" r="1.2"/><circle cx="27" cy="17" r="1.2"/><circle cx="31" cy="17" r="1.2"/><circle cx="35" cy="17" r="1.2"/><circle cx="7" cy="22" r="1.2"/><circle cx="11" cy="22" r="1.2"/><circle cx="15" cy="22" r="1.2"/><circle cx="19" cy="22" r="1.2"/><circle cx="23" cy="22" r="1.2"/><circle cx="27" cy="22" r="1.2"/><circle cx="31" cy="22" r="1.2"/><circle cx="35" cy="22" r="1.2"/><circle cx="9" cy="27" r="1.2"/><circle cx="13" cy="27" r="1.2"/><circle cx="17" cy="27" r="1.2"/><circle cx="21" cy="27" r="1.2"/><circle cx="25" cy="27" r="1.2"/><circle cx="29" cy="27" r="1.2"/><circle cx="33" cy="27" r="1.2"/><circle cx="13" cy="32" r="1.2"/><circle cx="17" cy="32" r="1.2"/><circle cx="21" cy="32" r="1.2"/><circle cx="25" cy="32" r="1.2"/><circle cx="29" cy="32" r="1.2"/><circle cx="17.5" cy="37" r="1.2"/><circle cx="21" cy="37" r="1.2"/><circle cx="24.5" cy="37" r="1.2"/>
+  </svg>
+  <div class="luc">
+    <div class="a d1 luc-gr">Voltamos com você,</div>
+    <div class="a d2 luc-nm">Lucimar</div>
+    <div class="luc-ln"></div>
+    <div class="kara a d3" id="k-lucim" data-aud="aud14" style="text-align:center;max-width:500px;margin-top:16px"></div>
+    <div class="a d4 luc-tr">Thomson Reuters &nbsp;·&nbsp; Parcerias e Alianças</div>
+  </div>
+</section>
+
+<!-- ══ AUDIO POOL ════════════════════════════════════════ -->
+<div style="display:none">
+  <audio id="aud0"  src="slide_00.mp3" preload="auto"></audio>
+  <audio id="aud1"  src="slide_01.mp3" preload="auto"></audio>
+  <audio id="aud2"  src="slide_02.mp3" preload="auto"></audio>
+  <audio id="aud3"  src="slide_03.mp3" preload="auto"></audio>
+  <audio id="aud4"  src="slide_04.mp3" preload="auto"></audio>
+  <audio id="aud5"  src="slide_05.mp3" preload="auto"></audio>
+  <audio id="aud6"  src="slide_06.mp3" preload="auto"></audio>
+  <audio id="aud7"  src="slide_07.mp3" preload="auto"></audio>
+  <audio id="aud8"  src="slide_08.mp3" preload="auto"></audio>
+  <audio id="aud9"  src="slide_09.mp3" preload="auto"></audio>
+  <audio id="aud10" src="slide_10.mp3" preload="auto"></audio>
+  <audio id="aud11" src="slide_11.mp3" preload="auto"></audio>
+  <audio id="aud12" src="slide_12.mp3" preload="auto"></audio>
+  <audio id="aud13" src="slide_13.mp3" preload="auto"></audio>
+  <audio id="aud14" src="slide_14.mp3" preload="auto"></audio>
+  <audio id="aud15" src="slide_15.mp3" preload="auto"></audio>
+</div>
+
+<script>
+/* ════════════════════════════════════════════════════
+   NARRATION TEXTS — karaoke per section
+════════════════════════════════════════════════════ */
+const NARRS = {
+  'k-hero':  'Olá Parceiros! Bem-vindo ao jogo! Iniciando o Q3, nosso grande campeonato JUNTOS 2026. Vamos revisar as regras, entender os critérios, e competir juntos para ganhar prêmios. Time pronto? Vamos começar esse jogo?!',
+  'k-gdd':   'Pontuação para Geração de Demanda! Este é o jogo de abrir oportunidades. Ganhe quatrocentos pontos quando abrir a maior quantidade de oportunidades. Mais quinhentos pontos para o líder em GB Niw Logo. Trezentos pontos extras para as Soluções Foco. Atenção: -100 pontos se não atingir o mínimo de oportunidades abertas em sua categoria. Vamos lá?! Abra mais, pontue mais, conquiste o pódio!',
+  'k-avm':   'Aceleração de Vendas: hora de subir no pódio! suba no ranking, vença e ganhe pontos. Quinhentos pontos para maior quantidade de oporutnidades em Migração GTM. Trezentos pontos para cada oporutnidade aberta e fechada no trimestre. Mais trezentos ao somar o maior valor das oportunidades vendidas. Duzentos pontos por maior numero por quantidade de oportunidades e 50 pontos por cada Solução Foco vendida. Atenção: -100 pontos se não atingir o mínimo de oportunidades vendidas em sua categoria!',
+  'k-cec':   'Quinhentos pontos para o líder em certificações das Soluções Foco 2026. Mais quinhentos pontos para consultores certificados alocados nos projetos. Cada consultor contratado dos programas Professional One e Parcerias Acadêmicas ganhará duzentos pontos. Trezentos pontos pela participação nos Programas Professional One, Parcerias Acadêmicas, palestras, sessão de dúvidas, apresentação prática de produtos. Cuidado: alocar consultores sem certificação te custará duzentos pontos negativos!',
+  'k-pdc':   'Projetos bem entregues viram campeões! Quatrocentos pontos ao concluir projetos que viram Cases de Sucesso. Trezentos pontos se oitenta por cento ou mais dos clientes derem feedback positivo no Se Sat. Duzentos pontos para projetos sem escalações. Trezentos pontos para aqueles parceiros que registrarem todos os dados do projeto, mantendo os atualizados no Portal de Parceiros. Atenção: menos duzentos pontos se o feedback for negativo passar de cinquenta por cento no Se Sat. Lembrem-se, a Qualidade define os vencedores!',
+  'k-eng':   'Cem pontos para os parceiros que participam! Vamos lá?! Quer ganhar? Fique atento aos comunicados com o selo da Campanha JUNTOS marcado no email. Toda ação da sua participação conta no jogo!',
+  'k-sol':   'Concentrem-se nas soluções Foco e ganhem mais pontos!',
+  'k-regras':'Agora: Atenção para as regras! Apuração feita a cada trimestre. Cada parceiro compete em sua própria categoria. Apenas oportunidades de GB entram na jogada da Campanha JUNTOS. Oportunidades que não fecharam não valem pontos. Dados analisados via Salesforce, Portal de Parceiros e TR Training. Jogo limpo garante os verdadeiros campeões! Identifique os seus resultados e ranking no Portal de Parceiro.',
+  'k-podio': 'Cada ação do seu time vale pontos. Cada venda, cada entrega, cada participação do seu time soma para a vitória. Vamos juntos para o pódio!',
+  'k-close': 'Há cinco anos JUNTOS! Premiando os Melhores Parceiros do Brasil!',
+  'k-lucim': 'Lucimar, voltamos juntos com você ao vivo.',
+};
+
+/* ════════════════════════════════════════════════════
+   INIT KARAOKE ELEMENTS
+════════════════════════════════════════════════════ */
+function initKaras() {
+  Object.keys(NARRS).forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const words = NARRS[id].split(' ');
+    el.innerHTML = words.map(w => `<span class="w">${w} </span>`).join('');
+  });
+}
+
+/* ════════════════════════════════════════════════════
+   AUDIO CONTROL
+════════════════════════════════════════════════════ */
+let soundOn = true;
+let curAud = null, barTmr = null;
+const playIcons = {};
+
+function stopAll() {
+  for (let i = 0; i < 16; i++) {
+    const a = document.getElementById('aud' + i);
+    if (a) { a.pause(); a.currentTime = 0; }
+  }
+  clearInterval(barTmr);
+  document.getElementById('narrbar-fill').style.width = '0';
+  Object.values(playIcons).forEach(el => { if (el) el.classList.remove('on'); });
+}
+
+let autoScrollEnabled = true;
+let autoTmr = null;
+
+function schedNextSection(delay) {
+  clearTimeout(autoTmr);
+  if (!autoScrollEnabled) return;
+  autoTmr = setTimeout(() => scrollNextSection(), delay);
+}
+
+function scrollNextSection() {
+  const secs = Array.from(document.querySelectorAll('.sec'));
+  // find which section is most visible
+  let bestSec = null, bestVis = 0;
+  secs.forEach(s => {
+    const r = s.getBoundingClientRect();
+    const vis = Math.min(r.bottom, window.innerHeight) - Math.max(r.top, 0);
+    if (vis > bestVis) { bestVis = vis; bestSec = s; }
+  });
+  if (!bestSec) return;
+  const idx = secs.indexOf(bestSec);
+  if (idx < secs.length - 1) {
+    secs[idx + 1].scrollIntoView({ behavior: 'smooth' });
+  }
+}
+
+function playAud(n) {
+  stopAll();
+  clearTimeout(autoTmr);
+  const a = document.getElementById('aud' + n);
+  if (!a) { schedNextSection(6000); return; }
+  curAud = a;
+  a.currentTime = 0;
+
+  if (soundOn) {
+    a.play().catch(() => { schedNextSection(6000); });
+    // narr bar
+    clearInterval(barTmr);
+    const fill = document.getElementById('narrbar-fill');
+    barTmr = setInterval(() => {
+      const dur = a.duration || 10;
+      const pct = Math.min(100, a.currentTime / dur * 100);
+      fill.style.width = pct + '%';
+      if (pct >= 100) clearInterval(barTmr);
+    }, 100);
+    // auto-scroll when audio ends
+    a.onended = () => {
+      clearInterval(barTmr);
+      document.getElementById('narrbar-fill').style.width = '100%';
+      schedNextSection(1200);
+    };
+    a.onerror = () => schedNextSection(6000);
+  } else {
+    // no sound — scroll after fixed time per section
+    schedNextSection(6000);
+  }
+}
+
+function replayAud(n) { playAud(n); }
+
+function toggleAuto() {
+  autoScrollEnabled = !autoScrollEnabled;
+  const btn = document.getElementById('btnAuto');
+  if (!autoScrollEnabled) {
+    clearTimeout(autoTmr);
+    stopAll();
+    btn.textContent = '▶ Retomar';
+    btn.classList.add('muted');
+  } else {
+    btn.textContent = '⏸ Pausar';
+    btn.classList.remove('muted');
+    // retoma tocando o áudio da seção atual
+    const secs = Array.from(document.querySelectorAll('.sec'));
+    let bestSec = null, bestVis = 0;
+    secs.forEach(s => {
+      const r = s.getBoundingClientRect();
+      const vis = Math.min(r.bottom, window.innerHeight) - Math.max(r.top, 0);
+      if (vis > bestVis) { bestVis = vis; bestSec = s; }
+    });
+    if (bestSec) {
+      const audIdx = SEC_AUD[bestSec.id];
+      if (audIdx !== undefined) playAud(audIdx);
+    }
+  }
+}
+
+function toggleSnd() {
+  soundOn = !soundOn;
+  const btn = document.getElementById('btnSnd');
+  if (!soundOn) { stopAll(); btn.textContent = '🔇 Mudo'; btn.classList.add('muted'); }
+  else { btn.textContent = '🔊 Narração'; btn.classList.remove('muted'); }
+}
+
+/* ════════════════════════════════════════════════════
+   SECTION → AUDIO MAP
+════════════════════════════════════════════════════ */
+const SEC_AUD = {
+  's-hero':0,'s-gdd':2,'s-avm':4,'s-cec':6,
+  's-pdc':8,'s-eng':10,'s-sol':11,'s-regras':12,
+  's-podio':13,'s-close':14,'s-lucim':15
+};
+
+/* ════════════════════════════════════════════════════
+   INTERSECTION OBSERVER
+════════════════════════════════════════════════════ */
+const sections = document.querySelectorAll('.sec');
+const TOTAL_SECS = sections.length;
+let lastSecId = '';
+
+const secObs = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    const sec = entry.target;
+    const id = sec.id;
+
+    if (entry.isIntersecting) {
+      // animate .a elements
+      sec.querySelectorAll('.a:not(.in)').forEach((el, i) => {
+        setTimeout(() => el.classList.add('in'), i * 40);
+      });
+      // animate .cc cards
+      sec.querySelectorAll('.cc:not(.in)').forEach((el, i) => {
+        setTimeout(() => el.classList.add('in'), 300 + i * 100);
+      });
+      // animate .rrow
+      sec.querySelectorAll('.rrow:not(.in)').forEach((el, i) => {
+        setTimeout(() => el.classList.add('in'), 200 + i * 80);
+      });
+
+      // update progress bar
+      const idx = Array.from(sections).indexOf(sec);
+      document.getElementById('pgbar').style.width = ((idx + 1) / TOTAL_SECS * 100) + '%';
+
+      // update dots
+      document.querySelectorAll('.dot').forEach(d => {
+        d.classList.toggle('on', d.dataset.s === id);
+      });
+      // update nav pills
+      document.querySelectorAll('.nav-pills a').forEach(a => {
+        a.classList.toggle('on', a.getAttribute('href') === '#' + id);
+      });
+
+      // play audio
+      if (id !== lastSecId) {
+        lastSecId = id;
+        const audIdx = SEC_AUD[id];
+        if (audIdx !== undefined) setTimeout(() => playAud(audIdx), 350);
+      }
+    }
+  });
+}, { threshold: 0.45 });
+
+sections.forEach(s => secObs.observe(s));
+
+/* ════════════════════════════════════════════════════
+   SCROLL NAV HELPER
+════════════════════════════════════════════════════ */
+function goto(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth' });
+}
+
+/* ════════════════════════════════════════════════════
+   INIT
+════════════════════════════════════════════════════ */
+/* ════════════════════════════════════════════════════
+   LOGO TR OFICIAL — dois anéis, pontos variados
+   Anel externo: 16 dots r 1.0–2.5 | Anel interno: 12 dots r 0.9–1.8
+════════════════════════════════════════════════════ */
+const TR_CIRCLES = [
+  /* outer ring */
+  [37.0,21.0,2.5],[35.8,27.1,1.9],[32.3,32.3,1.4],[27.1,35.8,1.1],
+  [21.0,37.0,1.0],[14.9,35.8,1.1],[9.7,32.3,1.4],[6.2,27.1,1.9],
+  [5.0,21.0,2.5],[6.2,14.9,1.9],[9.7,9.7,1.4],[14.9,6.2,1.1],
+  [21.0,5.0,1.0],[27.1,6.2,1.1],[32.3,9.7,1.4],[35.8,14.9,1.9],
+  /* inner ring */
+  [31.0,21.0,1.8],[29.7,26.0,1.4],[26.0,29.7,1.0],[21.0,31.0,0.9],
+  [16.0,29.7,1.0],[12.3,26.0,1.4],[11.0,21.0,1.8],[12.3,16.0,1.4],
+  [16.0,12.3,1.0],[21.0,11.0,0.9],[26.0,12.3,1.0],[29.7,16.0,1.4],
+];
+
+function fixLogos() {
+  document.querySelectorAll('svg').forEach(svg => {
+    /* identifica esferas TR pelo padrão antigo (cx="17.5") */
+    if (!svg.innerHTML.includes('cx="17.5"') && !svg.innerHTML.includes("cx='17.5'")) return;
+    const fill = svg.getAttribute('fill') || 'currentColor';
+    svg.innerHTML = TR_CIRCLES.map(([cx,cy,r]) =>
+      `<circle cx="${cx}" cy="${cy}" r="${r}" fill="${fill}"/>`
+    ).join('');
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  initKaras();
+  fixLogos();
+  // trigger hero on load
+  setTimeout(() => {
+    const hero = document.getElementById('s-hero');
+    if (hero) {
+      hero.querySelectorAll('.a').forEach((el, i) => {
+        setTimeout(() => el.classList.add('in'), 100 + i * 60);
+      });
+    }
+  }, 200);
+});
+</script>
+</body>
+</html>
