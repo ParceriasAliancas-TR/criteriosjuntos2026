@@ -652,22 +652,23 @@ body{
 
 <!-- ══ AUDIO POOL ════════════════════════════════════════ -->
 <div style="display:none">
-  <audio id="aud0"  src="slide_00.mp3?v=9" preload="auto"></audio>
-  <audio id="aud1"  src="slide_01.mp3?v=9" preload="auto"></audio>
-  <audio id="aud2"  src="slide_02.mp3?v=9" preload="auto"></audio>
-  <audio id="aud3"  src="slide_03.mp3?v=9" preload="auto"></audio>
-  <audio id="aud4"  src="slide_04.mp3?v=9" preload="auto"></audio>
-  <audio id="aud5"  src="slide_05.mp3?v=9" preload="auto"></audio>
-  <audio id="aud6"  src="slide_06.mp3?v=9" preload="auto"></audio>
-  <audio id="aud7"  src="slide_07.mp3?v=9" preload="auto"></audio>
-  <audio id="aud8"  src="slide_08.mp3?v=9" preload="auto"></audio>
-  <audio id="aud9"  src="slide_09.mp3?v=9" preload="auto"></audio>
-  <audio id="aud10" src="slide_10.mp3?v=9" preload="auto"></audio>
-  <audio id="aud11" src="slide_11.mp3?v=9" preload="auto"></audio>
-  <audio id="aud12" src="slide_12.mp3?v=9" preload="auto"></audio>
-  <audio id="aud13" src="slide_13.mp3?v=9" preload="auto"></audio>
-  <audio id="aud14" src="slide_14.mp3?v=9" preload="auto"></audio>
-  <audio id="aud15" src="slide_15.mp3?v=9" preload="auto"></audio>
+  <audio id="bgm" src="bgm.mp3" loop preload="auto"></audio>
+  <audio id="aud0"  src="slide_00.mp3?v=10" preload="auto"></audio>
+  <audio id="aud1"  src="slide_01.mp3?v=10" preload="auto"></audio>
+  <audio id="aud2"  src="slide_02.mp3?v=10" preload="auto"></audio>
+  <audio id="aud3"  src="slide_03.mp3?v=10" preload="auto"></audio>
+  <audio id="aud4"  src="slide_04.mp3?v=10" preload="auto"></audio>
+  <audio id="aud5"  src="slide_05.mp3?v=10" preload="auto"></audio>
+  <audio id="aud6"  src="slide_06.mp3?v=10" preload="auto"></audio>
+  <audio id="aud7"  src="slide_07.mp3?v=10" preload="auto"></audio>
+  <audio id="aud8"  src="slide_08.mp3?v=10" preload="auto"></audio>
+  <audio id="aud9"  src="slide_09.mp3?v=10" preload="auto"></audio>
+  <audio id="aud10" src="slide_10.mp3?v=10" preload="auto"></audio>
+  <audio id="aud11" src="slide_11.mp3?v=10" preload="auto"></audio>
+  <audio id="aud12" src="slide_12.mp3?v=10" preload="auto"></audio>
+  <audio id="aud13" src="slide_13.mp3?v=10" preload="auto"></audio>
+  <audio id="aud14" src="slide_14.mp3?v=10" preload="auto"></audio>
+  <audio id="aud15" src="slide_15.mp3?v=10" preload="auto"></audio>
 </div>
 
 <script>
@@ -742,6 +743,14 @@ function scrollNextSection() {
   }
 }
 
+const BGM_VOL = 0.13;
+const BGM_DUCK = 0.04;
+function bgmDuck(duck) {
+  const bgm = document.getElementById('bgm');
+  if (!bgm) return;
+  bgm.volume = duck ? BGM_DUCK : BGM_VOL;
+}
+
 function playAud(n) {
   stopAll();
   clearTimeout(autoTmr);
@@ -751,7 +760,8 @@ function playAud(n) {
   a.currentTime = 0;
 
   if (soundOn) {
-    a.play().catch(() => { schedNextSection(6000); });
+    bgmDuck(true);
+    a.play().catch(() => { bgmDuck(false); schedNextSection(6000); });
     // narr bar
     clearInterval(barTmr);
     const fill = document.getElementById('narrbar-fill');
@@ -765,11 +775,11 @@ function playAud(n) {
     a.onended = () => {
       clearInterval(barTmr);
       document.getElementById('narrbar-fill').style.width = '100%';
+      bgmDuck(false);
       schedNextSection(400);
     };
-    a.onerror = () => schedNextSection(6000);
+    a.onerror = () => { bgmDuck(false); schedNextSection(6000); };
   } else {
-    // no sound — scroll after fixed time per section
     schedNextSection(6000);
   }
 }
@@ -918,6 +928,8 @@ function startPresentation() {
   if(hero) {
     hero.querySelectorAll('.a').forEach((el, i) => setTimeout(() => el.classList.add('in'), 100 + i * 60));
   }
+  const bgm = document.getElementById('bgm');
+  if(bgm) { bgm.volume = BGM_VOL; bgm.play().catch(() => {}); }
   setTimeout(() => playAud(0), 200);
 }
 
