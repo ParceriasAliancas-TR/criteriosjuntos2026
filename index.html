@@ -198,13 +198,13 @@ body{
   font-size:clamp(1.2rem,2vw,1.7rem);font-weight:800;
   min-width:72px;text-align:right;flex-shrink:0;
 }
-.cpos{color:#4ade80}.cneg{color:var(--red)}.cgol{color:#4ade80}
+.cpos{color:#FFCA28;text-shadow:0 0 12px rgba(255,202,40,.6)}.cneg{color:var(--red);text-shadow:0 0 10px rgba(220,50,50,.5)}.cgol{color:#FFD700;text-shadow:0 0 14px rgba(255,215,0,.7)}
 
 .cbody{flex:1}
 .clbl{font-size:.64rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:2px}
 .crule{font-size:.87rem;color:rgba(255,255,255,.85);line-height:1.4}
-.crule strong{color:var(--or);font-size:.97rem;font-weight:700;letter-spacing:.02em}
-.crule .rn{color:var(--red);font-weight:700}
+.crule strong{color:#00E676;font-size:.97rem;font-weight:700;letter-spacing:.02em;text-shadow:0 0 10px rgba(0,230,118,.7),0 0 20px rgba(0,230,118,.35)}
+.crule .rn{color:#ff6b6b;font-weight:700;text-shadow:0 0 8px rgba(255,107,107,.5)}
 
 .cmins{font-size:.65rem;color:rgba(255,255,255,.28);letter-spacing:.05em;padding:6px 0 0}
 .cmins span{color:rgba(214,64,0,.75);font-weight:700}
@@ -653,22 +653,22 @@ body{
 <!-- ══ AUDIO POOL ════════════════════════════════════════ -->
 <div style="display:none">
   <audio id="bgm" src="bgm.mp3" loop preload="auto"></audio>
-  <audio id="aud0"  src="slide_00.mp3?v=12" preload="auto"></audio>
-  <audio id="aud1"  src="slide_01.mp3?v=12" preload="auto"></audio>
-  <audio id="aud2"  src="slide_02.mp3?v=12" preload="auto"></audio>
-  <audio id="aud3"  src="slide_03.mp3?v=12" preload="auto"></audio>
-  <audio id="aud4"  src="slide_04.mp3?v=12" preload="auto"></audio>
-  <audio id="aud5"  src="slide_05.mp3?v=12" preload="auto"></audio>
-  <audio id="aud6"  src="slide_06.mp3?v=12" preload="auto"></audio>
-  <audio id="aud7"  src="slide_07.mp3?v=12" preload="auto"></audio>
-  <audio id="aud8"  src="slide_08.mp3?v=12" preload="auto"></audio>
-  <audio id="aud9"  src="slide_09.mp3?v=12" preload="auto"></audio>
-  <audio id="aud10" src="slide_10.mp3?v=12" preload="auto"></audio>
-  <audio id="aud11" src="slide_11.mp3?v=12" preload="auto"></audio>
-  <audio id="aud12" src="slide_12.mp3?v=12" preload="auto"></audio>
-  <audio id="aud13" src="slide_13.mp3?v=12" preload="auto"></audio>
-  <audio id="aud14" src="slide_14.mp3?v=12" preload="auto"></audio>
-  <audio id="aud15" src="slide_15.mp3?v=12" preload="auto"></audio>
+  <audio id="aud0"  src="slide_00.mp3?v=13" preload="auto"></audio>
+  <audio id="aud1"  src="slide_01.mp3?v=13" preload="auto"></audio>
+  <audio id="aud2"  src="slide_02.mp3?v=13" preload="auto"></audio>
+  <audio id="aud3"  src="slide_03.mp3?v=13" preload="auto"></audio>
+  <audio id="aud4"  src="slide_04.mp3?v=13" preload="auto"></audio>
+  <audio id="aud5"  src="slide_05.mp3?v=13" preload="auto"></audio>
+  <audio id="aud6"  src="slide_06.mp3?v=13" preload="auto"></audio>
+  <audio id="aud7"  src="slide_07.mp3?v=13" preload="auto"></audio>
+  <audio id="aud8"  src="slide_08.mp3?v=13" preload="auto"></audio>
+  <audio id="aud9"  src="slide_09.mp3?v=13" preload="auto"></audio>
+  <audio id="aud10" src="slide_10.mp3?v=13" preload="auto"></audio>
+  <audio id="aud11" src="slide_11.mp3?v=13" preload="auto"></audio>
+  <audio id="aud12" src="slide_12.mp3?v=13" preload="auto"></audio>
+  <audio id="aud13" src="slide_13.mp3?v=13" preload="auto"></audio>
+  <audio id="aud14" src="slide_14.mp3?v=13" preload="auto"></audio>
+  <audio id="aud15" src="slide_15.mp3?v=13" preload="auto"></audio>
 </div>
 
 <script>
@@ -745,10 +745,27 @@ function scrollNextSection() {
 
 const BGM_VOL = 0.20;
 const BGM_DUCK = 0.03;
+const LAST_AUD = 15;
+let bgmFadeTmr = null;
+
 function bgmDuck(duck) {
   const bgm = document.getElementById('bgm');
   if (!bgm) return;
   bgm.volume = duck ? BGM_DUCK : BGM_VOL;
+}
+
+function bgmFadeOut() {
+  const bgm = document.getElementById('bgm');
+  if (!bgm) return;
+  clearInterval(bgmFadeTmr);
+  bgmFadeTmr = setInterval(() => {
+    bgm.volume = Math.max(0, bgm.volume - 0.02);
+    if (bgm.volume <= 0) {
+      clearInterval(bgmFadeTmr);
+      bgm.pause();
+      bgm.currentTime = 0;
+    }
+  }, 60);
 }
 
 function playAud(n) {
@@ -775,10 +792,13 @@ function playAud(n) {
     a.onended = () => {
       clearInterval(barTmr);
       document.getElementById('narrbar-fill').style.width = '100%';
-      bgmDuck(false);
+      if (n >= LAST_AUD) { bgmFadeOut(); } else { bgmDuck(false); }
       schedNextSection(400);
     };
-    a.onerror = () => { bgmDuck(false); schedNextSection(6000); };
+    a.onerror = () => {
+      if (n >= LAST_AUD) { bgmFadeOut(); } else { bgmDuck(false); }
+      schedNextSection(6000);
+    };
   } else {
     schedNextSection(6000);
   }
